@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('geo_chat', ['ionic', 'geo_chat.controllers', 'geo_chat.services'])
+angular.module('geo_chat', ['ionic', 'geo_chat.controllers', 'geo_chat.services', 'firebase', 'hmTouchEvents'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
