@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('geo_chat', ['ionic', 'geo_chat.controllers', 'geo_chat.services', 'firebase', 'hmTouchEvents'])
+angular.module('geo_chat', ['ionic', 'firebase'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -99,4 +99,6 @@ angular.module('geo_chat', ['ionic', 'geo_chat.controllers', 'geo_chat.services'
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/tab/dash');
 
-});
+})
+.constant('FBURL', 'https://nguyenthong1992.firebaseio.com/')
+.constant('MSGURL', 'https://nguyenthong1992.firebaseio.com/messages');
