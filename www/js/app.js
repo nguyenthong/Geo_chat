@@ -8,6 +8,7 @@
 angular.module('geo_chat', [
   //angular module dependencies
   'ionic',
+  //3rd parties modules
   'firebase',
   'uiGmapgoogle-maps'
 ])
@@ -26,8 +27,13 @@ angular.module('geo_chat', [
   });
 })
 
-.config(function($stateProvider, $urlRouterProvider) {
-
+.config(function($stateProvider, $urlRouterProvider, uiGmapGoogleMapApiProvider) {
+   //angularUi-google-map config
+   uiGmapGoogleMapApiProvider.configure({
+      //    key: 'your api key',
+      v: '3.17',
+      libraries: 'weather,geometry,visualization'
+   });
   // Ionic uses AngularUI Router which uses the concept of states
   // Learn more here: https://github.com/angular-ui/ui-router
   // Set up the various states which the app can be in.
