@@ -5,7 +5,12 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('geo_chat', ['ionic', 'firebase'])
+angular.module('geo_chat', [
+  //angular module dependencies
+  'ionic',
+  'firebase',
+  'uiGmapgoogle-maps'
+])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
