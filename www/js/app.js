@@ -34,6 +34,7 @@ angular.module('geo_chat', [
       v: '3.17',
       libraries: 'weather,geometry,visualization'
    });
+
   // Ionic uses AngularUI Router which uses the concept of states
   // Learn more here: https://github.com/angular-ui/ui-router
   // Set up the various states which the app can be in.
@@ -41,7 +42,7 @@ angular.module('geo_chat', [
   $stateProvider
 
   // setup an abstract state for the tabs directive
-    .state('tab', {
+  .state('tab', {
     url: "/tab",
     abstract: true,
     templateUrl: "templates/tabs.html"
@@ -51,6 +52,7 @@ angular.module('geo_chat', [
 
   .state('tab.dash', {
     url: '/dash',
+    //abstract: true,
     views: {
       'tab-dash': {
         templateUrl: 'templates/tab-dash.html',
@@ -58,6 +60,14 @@ angular.module('geo_chat', [
       }
     }
   })
+    .state('tab.dash.map', {
+      views: {
+        'locations': {
+          templateUrl: 'templates/location.html',
+          controller: 'LocationCtrl'
+          }
+      }
+    })
 
   .state('tab.chats', {
       url: '/chats',
@@ -106,6 +116,7 @@ angular.module('geo_chat', [
       }
     }
   });
+
 
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/tab/dash');

@@ -7,10 +7,12 @@ var minifyCss = require('gulp-minify-css');
 var rename = require('gulp-rename');
 var sh = require('shelljs');
 var connect = require('gulp-connect');
+var plugins = require('gulp-load-plugins')();
  
 var paths = {
   sass: ['./scss/**/*.scss'],
-  www : ['www/**/*.*']
+  www : ['www/**/*.*'],
+  appScripts: 'www/js/**/*.js'
 };
  
 gulp.task('default', ['sass']);
@@ -64,4 +66,13 @@ gulp.task('connect', function() {
     port: '1881',
     livereload: true
   });
+});
+
+gulp.task('injectjs', function(){
+  var target = gulp.src('./www/index.html');
+  var sources = gulp.src([paths.appScripts]);
+
+  return target.pipe(plugins.inject(sources, {relative: true}))
+      .pipe(gulp.dest('./www'));
+
 });
