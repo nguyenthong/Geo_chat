@@ -123,4 +123,6 @@ angular.module('geo_chat', [
 
 })
 .constant('FBURL', 'https://nguyenthong1992.firebaseio.com/')
-.constant('MSGURL', 'https://nguyenthong1992.firebaseio.com/messages');
+.constant('ROOMURL', 'https://nguyenthong1992.firebaseio.com/rooms')
+.constant('MSGURL', 'https://nguyenthong1992.firebaseio.com/messages')
+.constant('MEMBERGURL', 'https://nguyenthong1992.firebaseio.com/members');
