@@ -18,9 +18,21 @@ $dark:                            #444 !default;
 $calm: #b2ebf2 !default;
 $balanced: #00bcd4 !default;
 $dark: #0097a7 !default;
+//secondary color for button
+$assertive: #ff4081 !default;
 // The path for our ionicons font files, relative to the built CSS in www/css
 $ionicons-font-path: "../lib/ionic/fonts" !default;
 
 // Include all of Ionic
 @import "../www/lib/ionic/scss/ionic.scss";
 .angular-google-map-container { height: 13em; }
+#createButton{
+  position: absolute;
+  bottom: 1em;
+  right: 1em;
+  z-index: 19;
+  height: 4.5em;
+  width: 4.5em;
+  border-radius: 50%;
+  box-shadow: 3px 3px 5px rgba(0, 0, 0, .5);
+}

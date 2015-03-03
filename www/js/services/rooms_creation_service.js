@@ -24,7 +24,10 @@
           return fireRoom.$add(room);
         },
         get: function GetRooms(roomId) {
-          return $firebase(ref.child('posts').child(postId)).$asObject();
+          return $firebase(roomRef.child(roomId)).$asObject();
+        },
+        delete: function (room) {
+          return posts.$remove(room);
         }
       };
     });
