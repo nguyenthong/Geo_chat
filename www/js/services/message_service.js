@@ -9,7 +9,7 @@
 
       return {
         childAdded: function childAdded(cb) {
-          fireMessage.$on('child_added', function(data) {
+          fireMessage.$on('child_added', function (data) {
             var val = data.snapshot.value;
             cb.call(this, {
               user: val.user,

@@ -1,15 +1,24 @@
 /*global Firebase*/
-(function(angular) {
+(function (angular) {
   'use strict';
 
   angular.module('geo_chat')
-    .service('RoomsService', function( ROOMURL, $q, $firebase) {
+    .service('RoomsService', function( ROOMURL, MSGURL, MEMBERGURL, $q, $firebase) {
       var roomRef = new Firebase(ROOMURL);
       var fireRoom = $firebase(roomRef).$asArray();
+
+      var geoRoom = new GeoFire(ROOMURL);
+      var geoRoomRef = geoRoom.ref();
+
+      var messageRef = new Firebase(MSGURL).startAt().limit(10);
+      var fireMessage = $firebase(messageRef).$asArray();
+
+      var memberRef = new Firebase(MEMBERGURL);
+      var fireMember = $firebase(memberRef).$asArray();
       
       return {
         childAdded: function childAdded(cb) {
-          fireRoom.$on('child_added', function(data) {
+          fireRoom.$on('child_added', function (data) {
             var val = data.snapshot.value;
             cb.call(this, {
               room_name : val.room_name,
@@ -20,14 +29,19 @@
             });
           });
         },
+        //everytime create new room, automatically added roomID to the messages, members objects
         create: function CreateRoom(room) {
-          return fireRoom.$add(room);
+          return fireRoom.$add(room).then(function(roomRef){
+            var roomId = roomRef.key();
+            return fireMessage.$add(roomId),
+              fireMember.$add(roomId);
+          });
         },
         get: function GetRooms(roomId) {
           return $firebase(roomRef.child(roomId)).$asObject();
         },
         delete: function (room) {
-          return posts.$remove(room);
+          return fireRoom.$remove(room);
         }
       };
     });
