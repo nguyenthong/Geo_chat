@@ -5,20 +5,18 @@
   angular.module('geo_chat')
     .controller('LoginCtrl', function($scope, $firebase, $firebaseAuth, FBURL, $window, $rootScope, $state) {
       var fbRef = new Firebase(FBURL);
-      $scope.auth = $firebaseAuth(fbRef);
+      var authObj = $firebaseAuth(fbRef);
+      console.log($scope.authObj);
 
       $scope.login = function (provider) {
-        fbRef.authWithOAuthPopup(provider, function (error, authData) {
-        if (error) {
-          console.log("Login Failed!", error);
-        } else {
-          console.log("Authenticated successfully:");
-          $state.go('tab.dash');
-        }
-          console.log(authData);
-          return authData;
-        })
-        ;
+        authObj.$authWithOAuthPopup(provider)
+          .then(function(authData) {
+            console.log("Logged in as:", authData);
+            $state.go('tab.dash');
+          })
+          .catch(function(error) {
+            console.error("Authentication failed:", error);
+          });
       };
 
 
