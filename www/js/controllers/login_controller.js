@@ -7,18 +7,20 @@
       var fbRef = new Firebase(FBURL);
       $scope.auth = $firebaseAuth(fbRef);
 
-      $scope.login = function (facebook) {
-        fbRef.authWithOAuthPopup('facebook', function (error, authData) {
+      $scope.login = function (provider) {
+        fbRef.authWithOAuthPopup(provider, function (error, authData) {
         if (error) {
           console.log("Login Failed!", error);
         } else {
-          console.log("Authenticated successfully:", authData);
+          console.log("Authenticated successfully:");
           $state.go('tab.dash');
         }
-         $rootScope.authData = authData;
-          return $rootScope.authData;
-      });
+          console.log(authData);
+          return authData;
+        })
+        ;
       };
+
 
       //$scope.simpleLogin = $firebaseSimpleLogin(fbRef);
       //$scope.errors = [];
