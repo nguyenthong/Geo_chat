@@ -6,13 +6,14 @@
     .controller('LoginCtrl', function($scope, $firebase, $firebaseAuth, FBURL, $window, $rootScope, $state) {
       var fbRef = new Firebase(FBURL);
       var authObj = $firebaseAuth(fbRef);
-      console.log($scope.authObj);
 
       $scope.login = function (provider) {
         authObj.$authWithOAuthPopup(provider)
           .then(function(authData) {
             console.log("Logged in as:", authData);
             $state.go('tab.dash');
+            $rootScope.authData = authData;
+            return $rootScope;
           })
           .catch(function(error) {
             console.error("Authentication failed:", error);
