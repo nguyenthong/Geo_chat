@@ -17,15 +17,12 @@
             console.log("Logged in as:", authData);
             $state.go('tab.dash');
             //add new user ref to fireabase
-            userRef.child(authData.uid).set({
+            userRef.child(authData.uid).$set({
               provider: authData.provider,
               user_name: authData.facebook.displayName,
               picture: authData.facebook.cachedUserProfile.picture.data.url
             });
-            //adding authData to rootScope
-            $rootScope.authData = authData;
-            //todo store authData in cookies
-            return $rootScope;
+            return authData;
           })
           .catch(function(error) {
             console.error("Authentication failed:", error);

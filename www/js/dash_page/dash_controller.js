@@ -1,11 +1,20 @@
 (function (angular) {
   "use strict";
   angular.module('geo_chat')
-   .controller('DashCtrl', function($scope, uiGmapGoogleMapApi, $rootScope) {
-      $scope.user = {
-        user_name: $rootScope.authData.facebook.displayName,
-        picture: $rootScope.authData.facebook.cachedUserProfile.picture.data.url
-      };
+   .controller('DashCtrl', function($scope, uiGmapGoogleMapApi, GetProfileService ) {
+
+      GetProfileService.userProfile()
+        .then(getUserSuccess, getUserError);
+
+      function getUserSuccess (user){
+        $scope.user = user;
+      }
+
+      function getUserError (){
+        console.log("Error happen");
+      }
+
+
       // Do stuff with your $scope.
       // Note: Some of the directives require at least something to be defined originally!
       // e.g. $scope.markers = []
@@ -19,4 +28,3 @@
     });
 })(window.angular);
 
-xc

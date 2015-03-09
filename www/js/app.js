@@ -119,7 +119,7 @@ angular.module('geo_chat', [
 
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/tab/dash');
+  $urlRouterProvider.otherwise('/login');
 
 })
 .constant('FBURL', 'https://nguyenthong1992.firebaseio.com/')
