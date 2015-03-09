@@ -1,15 +1,17 @@
 <ion-view view-title="Chat rooms">
 	<ion-content scroll="false">
 		<div>
+			<!--user profile image-->
+			<div style="position: absolute; top: 0.3em; left: 0.3em; z-index: 19;">
+				<img ng-src="{{ user.picture }}" style="width: 5em; height: 5em; border-radius: 50%; box-shadow: 7px 7px 10px rgba(0, 0, 0, 0.5);"/>
+			</div>
+			<!---->
 			<ui-gmap-google-map center="map.center" zoom="map.zoom">
 
 			</ui-gmap-google-map>
 		</div>
-		<div class="card">
-			<h2>{{ user.user_name }}</h2>
-			<img ng-src="{{ user.picture }}" style="width: 64px; height: 64px; border-radius: 50%;"/>
-		</div>
-		<button class="button button-assertive" id="createButton">
+
+		<button class="button button-energized" id="createButton">
 			<i class="icon ion-plus-round custom-create-icon"></i>
 		</button>
   </ion-content>
