@@ -2,7 +2,9 @@
   /* global Firebase */
   "use strict";
   angular.module('geo_chat')
-   .service('GetProfileService', function($firebase, $firebaseAuth, USERURL, FBURL, $q ) {
+   .service('GetProfileService', ['$firebase', '$firebaseAuth', 'USERURL','FBURL', '$q', GetProfileService] );
+
+    function GetProfileService($firebase, $firebaseAuth, USERURL, FBURL, $q ) {
       var fbRef = new Firebase(FBURL);
       var authObj = $firebaseAuth(fbRef);
 
@@ -32,5 +34,5 @@
         }
       };
 
-    });
+    }
 })(window.angular);
