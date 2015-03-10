@@ -1,8 +1,9 @@
 (function (angular) {
   "use strict";
   angular.module('geo_chat')
-   .controller('DashCtrl', function($scope, uiGmapGoogleMapApi, GetProfileService ) {
+   .controller('DashCtrl', ['$scope', 'uiGmapGoogleMapApi', 'GetProfileService', DashCtrl]);
 
+    function DashCtrl($scope, uiGmapGoogleMapApi, GetProfileService ) {
       GetProfileService.userProfile()
         .then(getUserSuccess, getUserError);
 
@@ -25,6 +26,6 @@
       uiGmapGoogleMapApi.then(function(maps) {
 
       });
-    });
+    }
 })(window.angular);
 
