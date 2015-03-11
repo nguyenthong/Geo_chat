@@ -8,6 +8,7 @@
     "angularfire": "~0.9.2",
     "ryanmullins-angular-hammer": "~2.1.10",
     "angular-google-maps": "~2.0.13",
-    "geofire": "~3.2.1"
+    "geofire": "~3.2.1",
+    "ngCordova": "~0.1.12-alpha"
   }
 }

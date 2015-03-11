@@ -34,14 +34,14 @@
         //  });
         //},
         //todo everytime create new room, automatically added roomID to the messages, members objects
-        //create: function CreateRoom(room) {
-        //  roomRef.push({
-        //    name: room.name,
-        //    location: room.location,
-        //    room_picture: room.picture,
-        //    type: room.type
-        //  });
-        //},
+        create: function CreateRoom(room) {
+          roomRef.push({
+            name: room.name,
+            location: room.location,
+            room_picture: room.picture,
+            type: room.type
+          });
+        },
         //todo function to add user to the room
         get: function GetRooms(roomId) {
           return $firebase(roomRef.child(roomId)).$asObject();

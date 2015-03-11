@@ -2,10 +2,23 @@
 	<ion-content scroll="false">
 		<div>
 			<!--user profile image-->
-			<div style="position: absolute; top: 0.3em; left: 0.3em; z-index: 19;">
+			<div style="position: absolute; top: 0.3em; right: 5%; z-index: 19;">
 				<img ng-src="{{ user.picture }}" style="width: 5em; height: 5em; border-radius: 50%; box-shadow: 7px 7px 10px rgba(0, 0, 0, 0.5);"/>
 			</div>
 			<!---->
+			<ui-gmap-google-map center="map.center" zoom="map.zoom">
+
+			</ui-gmap-google-map>
+			<div class="list">
+			  <label class="item item-input item-floating-label">
+			    <span class="input-label">Chat room name</span>
+			    <input type="text" placeholder="Chat room name">
+			  </label>
+			  <label class="item item-input item-floating-label">
+			    <span class="input-label">Email</span>
+			    <input type="text" placeholder="Email">
+			  </label>
+			</div>
 		</div>
 
 

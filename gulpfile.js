@@ -7,7 +7,8 @@ var minifyCss = require('gulp-minify-css');
 var rename = require('gulp-rename');
 var sh = require('shelljs');
 var connect = require('gulp-connect');
-var plugins = require('gulp-load-plugins')();
+var inject = require('gulp-inject');
+
  
 var paths = {
   sass: ['./scss/**/*.scss'],
@@ -72,7 +73,6 @@ gulp.task('injectjs', function(){
   var target = gulp.src('./www/index.html');
   var sources = gulp.src([paths.appScripts]);
 
-  return target.pipe(plugins.inject(sources, {relative: true}))
+  return target.pipe(inject(sources, {relative: true}))
       .pipe(gulp.dest('./www'));
-
 });

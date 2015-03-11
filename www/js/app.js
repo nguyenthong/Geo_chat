@@ -8,6 +8,7 @@
 angular.module('geo_chat', [
   //angular module dependencies
   'ionic',
+  'ngCordova',
   //3rd parties modules
   'firebase',
   'uiGmapgoogle-maps'
