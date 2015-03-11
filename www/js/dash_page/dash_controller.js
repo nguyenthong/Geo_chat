@@ -1,14 +1,14 @@
 (function (angular) {
   "use strict";
   angular.module('geo_chat')
-   .controller('DashCtrl', ['$scope', 'uiGmapGoogleMapApi', 'GetProfileService','$state', DashCtrl]);
+   .controller('DashCtrl', ['$scope', '$rootScope', 'uiGmapGoogleMapApi', 'GetProfileService','$state', DashCtrl]);
 
-    function DashCtrl($scope, uiGmapGoogleMapApi, GetProfileService) {
+    function DashCtrl($scope,$rootScope, uiGmapGoogleMapApi, GetProfileService) {
       GetProfileService.userProfile()
         .then(getUserSuccess, getUserError);
 
       function getUserSuccess (user){
-        $scope.user = user;
+        $rootScope.user = user;
       }
 
       function getUserError (){
