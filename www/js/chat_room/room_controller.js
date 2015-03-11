@@ -4,12 +4,12 @@
   angular.module('geo_chat')
     .controller('RoomCtrl', function ($scope, $timeout, RoomService) {
 
-      $scope.rooms = [];
+      //$scope.rooms = [];
+      //
+      //RoomService.childAdded(function (addedChild) {
+      //  $scope.rooms.push(addedChild);
+      //});
 
-      RoomService.childAdded(function (addedChild) {
-        $scope.rooms.push(addedChild);
-      });
-
-      $scope.creatRoom = RoomService.add();
+      //$scope.creatRoom = RoomService.create();
     });
 }(window.angular));

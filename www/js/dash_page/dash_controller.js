@@ -1,9 +1,9 @@
 (function (angular) {
   "use strict";
   angular.module('geo_chat')
-   .controller('DashCtrl', ['$scope', 'uiGmapGoogleMapApi', 'GetProfileService', DashCtrl]);
+   .controller('DashCtrl', ['$scope', 'uiGmapGoogleMapApi', 'GetProfileService','$state', DashCtrl]);
 
-    function DashCtrl($scope, uiGmapGoogleMapApi, GetProfileService ) {
+    function DashCtrl($scope, uiGmapGoogleMapApi, GetProfileService) {
       GetProfileService.userProfile()
         .then(getUserSuccess, getUserError);
 
@@ -14,7 +14,6 @@
       function getUserError (){
         console.log("Error happen");
       }
-
 
       // Do stuff with your $scope.
       // Note: Some of the directives require at least something to be defined originally!

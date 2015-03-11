@@ -26,6 +26,10 @@ angular.module('geo_chat', [
     }
   });
 })
+//  todo remove this in production
+.run(['$state', 'stateWatcherService', function ($state, stateWatcherService) {
+      // Include $route to kick start the router.
+}])
 
 .config(function($stateProvider, $urlRouterProvider, uiGmapGoogleMapApiProvider) {
    //angularUi-google-map config
@@ -60,6 +64,16 @@ angular.module('geo_chat', [
       }
     }
   })
+
+    .state('tab.createRoom', {
+      url: '/createRoom',
+      views: {
+        'tab-dash': {
+          templateUrl: 'templates/createRoom.html',
+          controller: 'RoomCtrl'
+        }
+      }
+    })
 
   .state('tab.chats', {
       url: '/chats',

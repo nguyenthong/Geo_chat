@@ -5,7 +5,7 @@
   angular.module('geo_chat')
     .service('MessageService', function( MSGURL, $q, $firebase) {
       var messageRef = new Firebase(MSGURL).startAt().limit(10);
-      var fireMessage = $firebase(messageRef);
+      var fireMessage = $firebase(messageRef).$asArray();
 
       return {
         childAdded: function childAdded(cb) {

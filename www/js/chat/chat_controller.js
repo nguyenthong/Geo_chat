@@ -11,7 +11,7 @@
       MessageService.childAdded(function (addedChild) {
         $scope.messages.push(addedChild);
       });
-
+      //todo fix this with user profile
       $scope.sendMessage = function () {
         if ($rootScope.authData) {
           var newMessage = {

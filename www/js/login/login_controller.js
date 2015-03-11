@@ -16,6 +16,7 @@
           .then(function(authData) {
             console.log("Logged in as:", authData);
             $state.go('tab.dash');
+            //todo refactor this to service
             //add new user ref to fireabase
             userRef.child(authData.uid).$set({
               provider: authData.provider,

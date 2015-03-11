@@ -1,4 +1,4 @@
-<ion-view view-title="Chat rooms">
+<ion-view view-title="create Room">
 	<ion-content scroll="false">
 		<div>
 			<!--user profile image-->
@@ -6,13 +6,8 @@
 				<img ng-src="{{ user.picture }}" style="width: 5em; height: 5em; border-radius: 50%; box-shadow: 7px 7px 10px rgba(0, 0, 0, 0.5);"/>
 			</div>
 			<!---->
-			<ui-gmap-google-map center="map.center" zoom="map.zoom">
-
-			</ui-gmap-google-map>
 		</div>
 
-		<a ui-sref="tab.createRoom" id="createButton" class="button button-energized">
-			<i class="icon ion-plus-round custom-create-icon"></i>
-		</a>
+
   </ion-content>
 </ion-view>
