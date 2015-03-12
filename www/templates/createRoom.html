@@ -12,12 +12,15 @@
 			<div class="list">
 			  <label class="item item-input item-floating-label">
 			    <span class="input-label">Chat room name</span>
-			    <input type="text" placeholder="Chat room name">
+				  <input type="text" placeholder="Chat room name" ng-model="newRoom.name">
 			  </label>
 			  <label class="item item-input item-floating-label">
-			    <span class="input-label">Email</span>
-			    <input type="text" placeholder="Email">
+				  <span class="input-label">Position</span>
+				  <input type="text" placeholder="Position" ng-model="newRoom.location">
 			  </label>
+				<button class="button button-block button-assertive activated" ng-click="createRoom(newRoom)">
+					Create Room
+				</button>
 			</div>
 		</div>
 

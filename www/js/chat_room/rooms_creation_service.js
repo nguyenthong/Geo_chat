@@ -34,13 +34,8 @@
         //  });
         //},
         //todo everytime create new room, automatically added roomID to the messages, members objects
-        create: function CreateRoom(room) {
-          roomRef.push({
-            name: room.name,
-            location: room.location,
-            room_picture: room.picture,
-            type: room.type
-          });
+        createRoom: function CreateRoom(newRoom) {
+          return roomRef.push(newRoom);
         },
         //todo function to add user to the room
         get: function GetRooms(roomId) {

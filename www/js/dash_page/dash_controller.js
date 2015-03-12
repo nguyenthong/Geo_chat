@@ -19,7 +19,7 @@
       // Note: Some of the directives require at least something to be defined originally!
       // e.g. $scope.markers = []
       //todo memory leak issue, also in RoomCrtl, checkout https://github.com/dylanfprice/angular-gm, or using partial
-      var posOptions = {timeout: 10000, enableHighAccuracy: true};
+      var posOptions = {timeout: 1000, enableHighAccuracy: true};
       $cordovaGeolocation
         .getCurrentPosition(posOptions)
         .then(getLocationSuccess, getLocationError);
@@ -38,7 +38,7 @@
         console.log(err);
       }
 
-      setTimeout(getLocationSuccess, 10000);
+      setTimeout(getLocationSuccess, 0);
 
       $scope.options = {scrollwheel: false};
       // uiGmapGoogleMapApi is a promise.

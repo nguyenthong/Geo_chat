@@ -2,10 +2,10 @@
   'use strict';
 
   angular.module('geo_chat')
-    .controller('RoomCtrl', ['$scope','$cordovaGeolocation', 'uiGmapGoogleMapApi','RoomService' ,RoomCtrl]);
-    function RoomCtrl($scope, $cordovaGeolocation, uiGmapGoogleMapApi, RoomService) {
+    .controller('RoomCtrl', ['$scope', '$cordovaGeolocation', 'uiGmapGoogleMapApi', '$timeout', 'RoomService', RoomCtrl]);
+  function RoomCtrl($scope, $cordovaGeolocation, uiGmapGoogleMapApi, $timeout, RoomService) {
 
-      var posOptions = {timeout: 10000, enableHighAccuracy: true};
+    var posOptions = {timeout: 1000, enableHighAccuracy: true};
       $cordovaGeolocation
         .getCurrentPosition(posOptions)
         .then(getLocationSuccess, getLocationError);
@@ -24,14 +24,19 @@
         console.log(err);
       }
 
-      setTimeout(getLocationSuccess, 0);
+    setTimeout(getLocationSuccess, 1000);
+    //Create Room
+    $scope.createRoom = function (newRoom) {
+      RoomService.createRoom(newRoom);
+
+    };
 
       //RoomService.childAdded(function (addedChild) {
       //  $scope.rooms.push(addedChild);
       //});
       //
-      //$scope.creatRoom = RoomService.create();
-      $scope.options = {scrollwheel: false};
+
+    $scope.options = {scrollwheel: false};
       // uiGmapGoogleMapApi is a promise.
       // The "then" callback function provides the google.maps object.
       uiGmapGoogleMapApi.then(function(maps) {
