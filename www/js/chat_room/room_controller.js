@@ -2,26 +2,29 @@
   'use strict';
 
   angular.module('geo_chat')
-    .controller('RoomCtrl', ['$scope','$cordovaGeolocation', 'uiGmapGoogleMapApi', '$timeout','RoomService' ,RoomCtrl]);
-    function RoomCtrl($scope, $cordovaGeolocation, uiGmapGoogleMapApi, $timeout, RoomService) {
+    .controller('RoomCtrl', ['$scope','$cordovaGeolocation', 'uiGmapGoogleMapApi','RoomService' ,RoomCtrl]);
+    function RoomCtrl($scope, $cordovaGeolocation, uiGmapGoogleMapApi, RoomService) {
 
-      var posOptions = {timeout: 1000, enableHighAccuracy: true};
+      var posOptions = {timeout: 10000, enableHighAccuracy: true};
       $cordovaGeolocation
         .getCurrentPosition(posOptions)
-        .then(function (position) {
-          $timeout(function () {
-            $scope.map = {
-            center: {
-              latitude: position.coords.latitude,
-              longitude:  position.coords.longitude
-            },
-            zoom: 14
-          };
-          }, 0);
-        }, function(err) {
-          console.log(err);
-        });
+        .then(getLocationSuccess, getLocationError);
 
+      function getLocationSuccess(position) {
+          $scope.map = {
+          center: {
+            latitude: position.coords.latitude,
+            longitude:  position.coords.longitude
+          },
+          zoom: 14
+        };
+      }
+
+      function getLocationError(err) {
+        console.log(err);
+      }
+
+      setTimeout(getLocationSuccess, 0);
 
       //RoomService.childAdded(function (addedChild) {
       //  $scope.rooms.push(addedChild);
