@@ -1,25 +1,31 @@
 <ion-view view-title="create Room">
 	<ion-content scroll="false">
 		<div>
-			<!--user profile image-->
-			<div style="position: absolute; top: 0.3em; right: 5%; z-index: 19;">
-				<img ng-src="{{ user.picture }}" style="width: 5em; height: 5em; border-radius: 50%; box-shadow: 7px 7px 10px rgba(0, 0, 0, 0.5);"/>
-			</div>
 			<!---->
-			<ui-gmap-google-map center="map.center" zoom="map.zoom">
+			<!--<ui-gmap-google-map center="map.center" zoom="map.zoom">-->
 
-			</ui-gmap-google-map>
-			<div class="list">
-			  <label class="item item-input item-floating-label">
-			    <span class="input-label">Chat room name</span>
-				  <input type="text" placeholder="Chat room name" ng-model="newRoom.name">
-			  </label>
-				<button class="button button-block button-assertive activated" ng-click="createRoom(newRoom)">
-					Create Room
-				</button>
-			</div>
+			<!--</ui-gmap-google-map>-->
+			<form action="">
+				<div class="list">
+					<label class="item item-input item-floating-label">
+						<h2 style="color: red">{{ errorMes }}</h2>
+						<span class="input-label">Chat room name</span>
+						<input type="text" placeholder="Chat room name" ng-model="newRoom.name">
+					</label>
+					<!--private checkbox-->
+					<ion-checkbox ng-model="newRoom.private">Private( only people in this range can join)</ion-checkbox>
+					<!--range when select private checkbox-->
+					<div class="range" ng-show="newRoom.private">
+						<h2>{{ newRoom.range }} m</h2>
+						<input type="range" name="volume" min="0" max="4000" value="0" ng-model="newRoom.range">
+					</div>
+					<!--create button-->
+					<button class="button button-block button-assertive activated" ng-click="createRoom(newRoom)">
+						Create Room
+					</button>
+				</div>
+			</form>
 		</div>
-
 
   </ion-content>
 </ion-view>
