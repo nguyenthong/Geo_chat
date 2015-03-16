@@ -35,7 +35,7 @@ angular.module('geo_chat', [
 .config(function($stateProvider, $urlRouterProvider, uiGmapGoogleMapApiProvider) {
    //angularUi-google-map config
    uiGmapGoogleMapApiProvider.configure({
-      //    key: 'your api key',
+      //key: 'AIzaSyBKC4Ti0xa6OnWBiPWgmlPR3trlVl2cQho',
       v: '3.17',
       libraries: 'weather,geometry,visualization'
    });
@@ -141,4 +141,5 @@ angular.module('geo_chat', [
 .constant('USERURL','https://nguyenthong1992.firebaseio.com/users')
 .constant('ROOMURL', 'https://nguyenthong1992.firebaseio.com/rooms')
 .constant('MSGURL', 'https://nguyenthong1992.firebaseio.com/messages')
-.constant('MEMBERGURL', 'https://nguyenthong1992.firebaseio.com/members');
+.constant('MEMBERURL', 'https://nguyenthong1992.firebaseio.com/members')
+.constant('LOCATIONURL', 'https://nguyenthong1992.firebaseio.com/location');

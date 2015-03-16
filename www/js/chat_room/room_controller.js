@@ -9,14 +9,14 @@
       $cordovaGeolocation
         .getCurrentPosition(posOptions)
         .then(getLocationSuccess, getLocationError);
-
+      //location for displaying the map and create new room
       function getLocationSuccess(position) {
-          $scope.map = {
-          center: {
-            latitude: position.coords.latitude,
-            longitude:  position.coords.longitude
-          },
-          zoom: 14
+        $scope.map = {
+        center: {
+          latitude: position.coords.latitude,
+          longitude:  position.coords.longitude
+        },
+        zoom: 14
         };
       }
 
@@ -25,22 +25,18 @@
       }
 
     setTimeout(getLocationSuccess, 1000);
+
     //Create Room
     $scope.createRoom = function (newRoom) {
-      RoomService.createRoom(newRoom);
-
+      var pushRoomData = {
+        name: newRoom.name,
+        location: [$scope.map.center.latitude, $scope.map.center.longitude]
+      };
+      RoomService.createRoom(pushRoomData);
     };
 
-      //RoomService.childAdded(function (addedChild) {
-      //  $scope.rooms.push(addedChild);
-      //});
-      //
-
     $scope.options = {scrollwheel: false};
-      // uiGmapGoogleMapApi is a promise.
-      // The "then" callback function provides the google.maps object.
-      uiGmapGoogleMapApi.then(function(maps) {
 
-      });
-    }
+
+  }
 }(window.angular));

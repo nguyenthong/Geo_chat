@@ -4,11 +4,13 @@
   'use strict';
 
   angular.module('geo_chat')
-    .service('RoomService', ['ROOMURL', 'MSGURL', 'MEMBERGURL', '$q', '$firebase', RoomsService]);
+    .service('RoomService', ['ROOMURL', 'MSGURL', 'MEMBERURL', 'LOCATIONURL', '$q', '$firebase', RoomsService]);
     
-  function RoomsService( ROOMURL, MSGURL, MEMBERGURL, $q, $firebase) {
+  function RoomsService( ROOMURL, MSGURL, MEMBERURL, LOCATIONURL, $q, $firebase) {
     var roomRef = new Firebase(ROOMURL);
-    var geoFire = new GeoFire(roomRef);
+
+    var geoRoomRef = new Firebase(LOCATIONURL);
+    var geoFire = new GeoFire(geoRoomRef);
     var geoRef = geoFire.ref();
 
     //todo fix this, not query all the room
@@ -19,7 +21,7 @@
 
     var messageRef = new Firebase(MSGURL);
 
-    var memberRef = new Firebase(MEMBERGURL);
+    var memberRef = new Firebase(MEMBERURL);
     var fireMember = $firebase(memberRef).$asArray();
 
     function onComplete(data, snapshot) {
@@ -46,21 +48,21 @@
       //    });
       //  });
       //},
-      //todo everytime create new room, automatically added roomID to the messages, members objects
       createRoom: function CreateRoom(newRoom) {
+        //todo fix the memberRef and MessageRef creation base on newRoomRef.key(()
         var newRoomRef = roomRef.push(newRoom, onComplete);
         var newRoomID = newRoomRef.key();
         //using newRoomID to set ID for messages, locations, members
-        memberRef.set({
-          roomID: newRoomRef.key(),
-          info:{
-          }
+        memberRef.child(newRoomRef.key()).set({
+          empty: true,
+          info: {}
         });
-        messageRef.set({
-          roomID: newRoomRef.key(),
-          info:{
-          }
+        messageRef.child(newRoomRef.key()).set({
+          empty: true,
+          info: {}
         });
+        //setting location for the room
+        geoFire.set(newRoomRef.key(),newRoom.location);
         return console.log(newRoomID);
       },
       //todo function to add user to the room
