@@ -32,18 +32,19 @@
     setTimeout(getLocationSuccess, 0);
 
     //Create Room
+    $scope.newRoom = {};
 
-    $scope.createRoom = function (newRoom) {
-      if (newRoom === undefined){
+    $scope.createRoom = function () {
+      if ( $scope.newRoom.name === undefined){
         $scope.errorMes = "*Room name is required";
       }
       else{
-        switch (newRoom.private){
+        switch ( $scope.newRoom.private){
           case undefined:
             var pushRoomData = {
-              name: newRoom.name,
-              private: newRoom.private,
-              range: newRoom.range,
+              name:  $scope.newRoom.name,
+              private:  $scope.newRoom.private,
+              range:  $scope.newRoom.range,
               location: [$scope.map.center.latitude, $scope.map.center.longitude]
             };
             pushRoomData.private = false;
@@ -52,17 +53,18 @@
             break;
           case !undefined:
             var pushRoomData = {
-              name: newRoom.name,
-              private: newRoom.private,
-              range: newRoom.range,
+              name:  $scope.newRoom.name,
+              private:  $scope.newRoom.private,
+              range:  $scope.newRoom.range,
               location: [$scope.map.center.latitude, $scope.map.center.longitude]
             };
-            pushRoomData.private = newRoom.private;
-            pushRoomData.range = newRoom.range;
+            pushRoomData.private =  $scope.newRoom.private;
+            pushRoomData.range =  $scope.newRoom.range;
             RoomService.createRoom(pushRoomData);
             break;
         }
       }
+      $scope.newRoom = defaultForm;
 
     };
 
