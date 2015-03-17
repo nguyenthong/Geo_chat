@@ -1,9 +1,9 @@
 (function (angular) {
   "use strict";
   angular.module('geo_chat')
-   .controller('DashCtrl',['$scope', '$rootScope', '$cordovaGeolocation','uiGmapGoogleMapApi', 'GetProfileService', DashCtrl]);
+   .controller('DashCtrl',['$scope', '$rootScope', '$cordovaGeolocation','uiGmapGoogleMapApi', 'GetProfileService', 'RoomService', DashCtrl]);
 
-    function DashCtrl($scope,$rootScope, $cordovaGeolocation, uiGmapGoogleMapApi, GetProfileService) {
+    function DashCtrl($scope,$rootScope, $cordovaGeolocation, uiGmapGoogleMapApi, GetProfileService, RoomService) {
       GetProfileService.userProfile()
         .then(getUserSuccess, getUserError);
 
@@ -39,6 +39,21 @@
       }
 
       setTimeout(getLocationSuccess, 0);
+
+      //Querying the rooms
+      $scope.rooms = [];
+      $scope.radius = 0;
+      $scope.roomRefresh = function() {
+        RoomService.getRoom($scope.radius, $scope.map.center)
+         .success(function(roomQuery) {
+           $scope.rooms = roomQuery;
+         })
+         .finally(function() {
+           // Stop the ion-refresher from spinning
+           $scope.$broadcast('scroll.refreshComplete');
+         });
+      };
+
 
       $scope.options = {scrollwheel: false};
       // uiGmapGoogleMapApi is a promise.

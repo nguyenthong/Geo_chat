@@ -9,6 +9,7 @@
         private: "",
         range: ""
       };
+     $scope.rooms = [];
     //Get location of user
     var posOptions = {timeout: 1000, enableHighAccuracy: true};
       $cordovaGeolocation
@@ -70,6 +71,8 @@
       $scope.newRoom = defaultForm;
 
     };
+    // Querying the room
+
 
     $scope.options = {scrollwheel: false};
 

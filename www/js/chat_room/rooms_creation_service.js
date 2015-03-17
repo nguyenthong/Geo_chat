@@ -36,18 +36,6 @@
 
     return {
       //todo make this only get the room inside radius
-      //childAdded: function childAdded(cb) {
-      //  fireRoomArray.once('child_added', function (data) {
-      //    var val = data.snapshot.value;
-      //    cb.call(this, {
-      //      room_name : val.room_name,
-      //      type      : val.type,
-      //      location  : val.location,
-      //      radius    : val.radius,
-      //      name      : data.snapshot.name
-      //    });
-      //  });
-      //},
       createRoom: function CreateRoom(newRoom) {
         //todo fix the memberRef and MessageRef creation base on newRoomRef.key(()
         var newRoomRef = roomRef.push(newRoom, onComplete);
@@ -66,8 +54,15 @@
         return console.log(newRoomID);
       },
       //todo function to add user to the room
-      get: function GetRooms(roomId) {
-        return $firebase(roomRef.child(roomId)).$asObject();
+      getRoom: function GetRooms(radius, location) {
+        var deferred = $q.defer();
+        var roomQuery = geoFire.query({
+          center: [location.latitude, location.longitude],
+          radius: radius
+          //radius in kilometers
+          });
+        deferred.resolve(roomQuery);
+        return deferred.promise;
       },
       delete: function (room) {
       // todo adding remove method

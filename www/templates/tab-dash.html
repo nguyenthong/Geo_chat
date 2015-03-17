@@ -1,18 +1,56 @@
 <ion-view view-title="Chat rooms">
-	<ion-content scroll="false">
+	<ion-content scroll="true">
 		<div>
-			<!--user profile image-->
-			<div style="position: absolute; top: 0.3em; left: 0.3em; z-index: 19;">
-				<img ng-src="{{ user.picture }}" style="width: 5em; height: 5em; border-radius: 50%; box-shadow: 7px 7px 10px rgba(0, 0, 0, 0.5);"/>
-			</div>
-			<!---->
-			<ui-gmap-google-map center="map.center" zoom="map.zoom">
-
-			</ui-gmap-google-map>
+		<!--user profile image-->
+		<div style="position: absolute; top: 1em; left: 0.3em; z-index: 19;">
+			<img ng-src="{{ user.picture }}" style="width: 5em; height: 5em; border-radius: 50%; box-shadow: 7px 7px 10px rgba(0, 0, 0, 0.5);"/>
+		</div>
+			<!--radius indicator-->
+		<div id="range-indicator">
+			<h2 style="text-align: center; margin-top: 25%; color: #ff4081; ">
+				{{ radius }}
+			</h2>
 		</div>
 
-		<a ui-sref="tab.createRoom" id="createButton" class="button button-energized">
-			<i class="icon ion-plus-round custom-create-icon"></i>
-		</a>
-  </ion-content>
+		<!--map-->
+		<ui-gmap-google-map center="map.center" zoom="map.zoom">
+
+		</ui-gmap-google-map>
+			<!--radius-->
+		<div class="range" id="radius-range" >
+		  <input type="range" name="volume"  min="0" max="1000" ng-model="radius">
+		</div>
+
+	</div>
+		<!--room list-->
+			<ion-refresher
+		    pulling-text="Pull to refresh..."
+		    on-refresh="roomRefresh()">
+		  </ion-refresher>
+		  <ion-list>
+		    <ion-item ng-repeat="room in rooms"></ion-item>
+		  </ion-list>
+	</ion-content>
+	<!--create room button-->
+	<a ui-sref="tab.createRoom" id="createButton" class="button button-energized">
+		<i class="icon ion-plus-round custom-create-icon"></i>
+	</a>
 </ion-view>
+<!--style for google map-->
+<style>
+	.angular-google-map-container {
+		z-index: -1;
+		height: 13em;
+	}
+	#range-indicator{
+		position: absolute;
+		top: 7em;
+		left: 0.3em;
+		height: 5em;
+		width: 5em;
+		border-radius: 50%;
+		box-shadow: 7px 7px 10px rgba(0, 0, 0, 0.5);
+		background-color: #b2ebf2
+	}
+
+</style>
