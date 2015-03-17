@@ -9,7 +9,7 @@
         private: "",
         range: ""
       };
-
+    //Get location of user
     var posOptions = {timeout: 1000, enableHighAccuracy: true};
       $cordovaGeolocation
         .getCurrentPosition(posOptions)
@@ -38,6 +38,9 @@
       if ( $scope.newRoom.name === undefined){
         $scope.errorMes = "*Room name is required";
       }
+      else if ( $scope.newRoom.range === undefined ){
+        $scope.errorMes = "*Range is required";
+      }
       else{
         switch ( $scope.newRoom.private){
           case undefined:
@@ -48,7 +51,7 @@
               location: [$scope.map.center.latitude, $scope.map.center.longitude]
             };
             pushRoomData.private = false;
-            pushRoomData.range = 0;
+            pushRoomData.range = $scope.newRoom.range;
             RoomService.createRoom(pushRoomData);
             break;
           case !undefined:
