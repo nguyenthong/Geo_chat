@@ -62,11 +62,12 @@
           radius: distance
           //radius in kilometers
           });
+
         geoQuery.on("key_entered", function(key, location, distance) {
             rooms.push(key);
             console.log("room " + key + " found at " + location + " (" + distance + " km away)");
-          });
-        deferred.resolve(rooms);
+          deferred.resolve(rooms);
+        });
         return deferred.promise;
       },
       delete: function (room) {

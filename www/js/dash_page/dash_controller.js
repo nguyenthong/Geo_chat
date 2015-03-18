@@ -46,7 +46,6 @@
       setTimeout(getLocationSuccess, 0);
 
       //Querying the rooms
-      $scope.rooms = [];
       $scope.radius = 100;
       $scope.roomRefresh = function(radius) {
         //data for callback
@@ -60,6 +59,7 @@
         $scope.$apply();
 
         function getRoomSuccess(rooms) {
+          $scope.rooms = rooms;
           console.log(rooms);
         }
 
