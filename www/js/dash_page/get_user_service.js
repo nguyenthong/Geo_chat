@@ -3,13 +3,14 @@
   /*global GeoFire*/
   "use strict";
   angular.module('geo_chat')
-   .service('GetProfileService', ['$firebase', '$firebaseAuth', 'USERURL','FBURL', '$q', GetProfileService] );
+   .service('GetProfileService', ['$firebase', '$firebaseAuth', 'USERURL','FBURL', 'USERLOCATIONURL', '$q', GetProfileService] );
 
-    function GetProfileService($firebase, $firebaseAuth, USERURL, FBURL, $q ) {
+    function GetProfileService($firebase, $firebaseAuth, USERURL, FBURL, USERLOCATIONURL, $q ) {
       var fbRef = new Firebase(FBURL);
       var authObj = $firebaseAuth(fbRef);
 
-      var geoFire = new GeoFire(fbRef);
+      var userLocationRef = new Firebase(USERLOCATIONURL);
+      var geoFire = new GeoFire(userLocationRef);
       var geoRef = geoFire.ref();
 
       return {

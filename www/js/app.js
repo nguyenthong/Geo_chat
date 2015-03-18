@@ -139,6 +139,7 @@ angular.module('geo_chat', [
 })
 .constant('FBURL', 'https://nguyenthong1992.firebaseio.com/')
 .constant('USERURL','https://nguyenthong1992.firebaseio.com/users')
+.constant('USERLOCATIONURL','https://nguyenthong1992.firebaseio.com/users_location')
 .constant('ROOMURL', 'https://nguyenthong1992.firebaseio.com/rooms')
 .constant('MSGURL', 'https://nguyenthong1992.firebaseio.com/messages')
 .constant('MEMBERURL', 'https://nguyenthong1992.firebaseio.com/members')
