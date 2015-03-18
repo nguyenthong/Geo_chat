@@ -47,9 +47,10 @@
 
       //Querying the rooms
       $scope.rooms = [];
+      $scope.radius = 100;
       $scope.roomRefresh = function(radius) {
         //data for callback
-        var distance = Number(radius);//geofire take the distance para in kilometer
+        var distance = Number(radius)* 0.001;//geofire take the distance para in kilometer
         var location = $scope.currentLocation;
         var key = $rootScope.user.userKey;
         console.log(distance);
