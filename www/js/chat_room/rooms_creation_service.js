@@ -54,14 +54,19 @@
         return console.log(newRoomID);
       },
       //todo function to add user to the room
-      getRoom: function GetRooms(distance, location) {
+      getRoom: function GetRooms(key,location, distance) {
+        var rooms = [];
         var deferred = $q.defer();
         var geoQuery = geoFire.query({
           center: location,
           radius: distance
           //radius in kilometers
           });
-        deferred.resolve(geoQuery);
+        geoQuery.on("key_entered", function(key, location, distance) {
+            rooms.push(key);
+            console.log("room " + key + " found at " + location + " (" + distance + " km away)");
+          });
+        deferred.resolve(rooms);
         return deferred.promise;
       },
       delete: function (room) {
