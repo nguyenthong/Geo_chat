@@ -47,20 +47,23 @@
 
       //Querying the rooms
       $scope.rooms = [];
-      $scope.radius = 0;
-      $scope.roomRefresh = function() {
+      $scope.roomRefresh = function(radius) {
         //data for callback
-        var distance = $scope.radius * 0.001;//geofire take the distance para in kilometer
+        var distance = Number(radius);//geofire take the distance para in kilometer
         var location = $scope.currentLocation;
         var key = $rootScope.user.userKey;
+        console.log(distance);
+        console.log(location);
 
-        RoomService.getRoom($scope.radius, $scope.map.center).
+        RoomService.getRoom(distance, location).
           then(getRoomSuccess, getRoomError);
         $scope.$broadcast('scroll.refreshComplete');
         $scope.$apply();
 
         function getRoomSuccess(geoQuery) {
           console.log(key);
+          console.log(location);
+          console.log(distance);
           geoQuery.on("key_entered", function(key, location, distance) {
             console.log("room " + key + " found at " + location + " (" + distance + " km away)");
           });

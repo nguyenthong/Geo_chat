@@ -71,7 +71,7 @@ angular.module('geo_chat', [
       views: {
         'tab-dash': {
           templateUrl: 'templates/createRoom.html',
-          controller: 'RoomCtrl'
+          controller: 'CreateRoomCtrl'
         }
       }
     })

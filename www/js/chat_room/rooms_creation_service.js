@@ -54,11 +54,11 @@
         return console.log(newRoomID);
       },
       //todo function to add user to the room
-      getRoom: function GetRooms(radius, location) {
+      getRoom: function GetRooms(distance, location) {
         var deferred = $q.defer();
         var geoQuery = geoFire.query({
-          center: [location.latitude, location.longitude],
-          radius: radius
+          center: location,
+          radius: distance
           //radius in kilometers
           });
         deferred.resolve(geoQuery);
