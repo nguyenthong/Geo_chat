@@ -1,5 +1,6 @@
 (function (angular) {
   /* global Firebase */
+  /*global GeoFire*/
   "use strict";
   angular.module('geo_chat')
    .service('GetProfileService', ['$firebase', '$firebaseAuth', 'USERURL','FBURL', '$q', GetProfileService] );
@@ -7,6 +8,9 @@
     function GetProfileService($firebase, $firebaseAuth, USERURL, FBURL, $q ) {
       var fbRef = new Firebase(FBURL);
       var authObj = $firebaseAuth(fbRef);
+
+      var geoFire = new GeoFire(fbRef);
+      var geoRef = geoFire.ref();
 
       return {
         userProfile: function userProfile () {
@@ -21,7 +25,8 @@
               userRef.once("value", function (data) {
                 var user = {
                   user_name: data.val().user_name,
-                  picture: data.val().picture
+                  picture: data.val().picture,
+                  userKey: authData.uid
                 };
                 deferred.resolve(user);
               });
@@ -31,7 +36,19 @@
             }
           });
           return deferred.promise;
+        },
+
+        userLocationKey: function userLocationKey(userLocation) {
+          //setting location for user
+          var deferred = $q.defer();
+
+          authObj.$onAuth(function (authData) {
+            geoFire.set(authData.uid, userLocation);
+            return authData.uid;
+          });
+          return deferred.promise;
         }
+
       };
 
     }
