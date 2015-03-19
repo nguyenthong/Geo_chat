@@ -4,9 +4,9 @@
    .controller('DashCtrl',['$scope', '$rootScope', '$timeout', '$cordovaGeolocation','uiGmapGoogleMapApi', 'GetProfileService', 'RoomService', DashCtrl]);
 
     function DashCtrl($scope,$rootScope, $timeout, $cordovaGeolocation, uiGmapGoogleMapApi, GetProfileService, RoomService) {
+
       GetProfileService.userProfile()
       .then(getUserSuccess, getUserError);
-
 
       function getUserSuccess (user){
         $rootScope.user = user;
@@ -60,7 +60,6 @@
 
         function getRoomSuccess(rooms) {
           $scope.rooms = rooms;
-          console.log(rooms);
         }
 
         function getRoomError() {

@@ -28,9 +28,13 @@
 		    pulling-text="Pull to refresh..."
 		    on-refresh="roomRefresh(radius)">
 		  </ion-refresher>
-		  <ion-list>
+		  <ion-list can-swipe="listCanSwipe">
 		    <ion-item ng-repeat="room in rooms">
-
+			    <div class="card">
+					  <div class="item item-text-wrap">
+					    <h2>{{ room.name }}</h2>
+					  </div>
+					</div>
 		    </ion-item>
 		  </ion-list>
 	</ion-content>

@@ -13,12 +13,6 @@
     var geoFire = new GeoFire(geoRoomRef);
     var geoRef = geoFire.ref();
 
-    //todo fix this, not query all the room
-    //var fireRoomArray = $firebase(roomRef).$asArray();
-
-    //var geoRoom = new GeoFire(ROOMURL);
-    ////var geoRoomRef = geoRoom.ref();
-
     var messageRef = new Firebase(MSGURL);
 
     var memberRef = new Firebase(MEMBERURL);
@@ -35,7 +29,6 @@
     }
 
     return {
-      //todo make this only get the room inside radius
       createRoom: function CreateRoom(newRoom) {
         //todo fix the memberRef and MessageRef creation base on newRoomRef.key(()
         var newRoomRef = roomRef.push(newRoom, onComplete);
@@ -64,9 +57,11 @@
           });
 
         geoQuery.on("key_entered", function(key, location, distance) {
-            rooms.push(key);
-            console.log("room " + key + " found at " + location + " (" + distance + " km away)");
-          deferred.resolve(rooms);
+          roomRef.child(key).once("value", function (data) {
+            var room = data.val();
+            rooms.push(room);
+            deferred.resolve(rooms);
+          });
         });
         return deferred.promise;
       },
