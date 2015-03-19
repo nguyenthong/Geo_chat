@@ -1,9 +1,9 @@
 (function (angular) {
   "use strict";
   angular.module('geo_chat')
-   .controller('DashCtrl',['$scope', '$rootScope', '$timeout', '$cordovaGeolocation','uiGmapGoogleMapApi', 'GetProfileService', 'RoomService', DashCtrl]);
+   .controller('DashCtrl',['$scope', '$rootScope', '$log','$timeout', '$cordovaGeolocation','uiGmapGoogleMapApi', 'GetProfileService', 'RoomService', DashCtrl]);
 
-    function DashCtrl($scope,$rootScope, $timeout, $cordovaGeolocation, uiGmapGoogleMapApi, GetProfileService, RoomService) {
+    function DashCtrl($scope,$rootScope, $log, $timeout, $cordovaGeolocation, uiGmapGoogleMapApi, GetProfileService, RoomService) {
 
       GetProfileService.userProfile()
       .then(getUserSuccess, getUserError);
@@ -31,19 +31,28 @@
             latitude: position.coords.latitude,
             longitude:  position.coords.longitude
           },
-          zoom: 14
+          zoom: 15
+        };
+        //Google map marker
+        $scope.marker = {
+          id: 0,
+          coords: $scope.map.center,
+          options: { draggable: true }
         };
         //saving user location in 2 differnt types of data
         $scope.currentLocation = [position.coords.latitude, position.coords.longitude];
       //  save current user location to the firebase for Geoquery every 1s
         GetProfileService.userLocationKey($scope.currentLocation);
       }
-
       function getLocationError(err) {
         console.log(err);
       }
-
       setTimeout(getLocationSuccess, 0);
+
+
+      $scope.options = {scrollwheel: true};
+      uiGmapGoogleMapApi.then(function(maps) {
+      });
 
       //Querying the rooms
       $scope.radius = 100;
@@ -67,13 +76,6 @@
         }
       };
 
-
-      $scope.options = {scrollwheel: false};
-      // uiGmapGoogleMapApi is a promise.
-      // The "then" callback function provides the google.maps object.
-      uiGmapGoogleMapApi.then(function(maps) {
-
-      });
     }
 })(window.angular);
 
