@@ -67,8 +67,9 @@
         $scope.$broadcast('scroll.refreshComplete');
         $scope.$apply();
 
-        function getRoomSuccess(rooms) {
-          $scope.rooms = rooms;
+        function getRoomSuccess(container) {
+          $scope.rooms = container.rooms;
+          $scope.circles = container.circles;
         }
 
         function getRoomError() {

@@ -49,6 +49,7 @@
       //todo function to add user to the room
       getRoom: function GetRooms(key,location, distance) {
         var rooms = [];
+        var circles = [];
         var deferred = $q.defer();
         var geoQuery = geoFire.query({
           center: location,
@@ -59,8 +60,31 @@
         geoQuery.on("key_entered", function(key, location, distance) {
           roomRef.child(key).once("value", function (data) {
             var room = data.val();
+            var circle = {
+              id: key,
+                center: {
+                    latitude: room.location[0],
+                    longitude: room.location[1]
+                },
+                radius: Number(room.range),
+                stroke: {
+                    color: '#08B21F',
+                    weight: 2,
+                    opacity: 1
+                },
+                fill: {
+                    color: '#08B21F',
+                    opacity: 0.5
+                }
+            };
+
             rooms.push(room);
-            deferred.resolve(rooms);
+            circles.push(circle);
+            var container = {
+              rooms: rooms,
+              circles: circles
+            };
+            deferred.resolve(container);
           });
         });
         return deferred.promise;
