@@ -2,7 +2,8 @@
   'use strict';
 
   angular.module('geo_chat')
-    .controller('ChatCtrl', function ($scope, $timeout, MessageService, $rootScope) {
+    .controller('ChatCtrl', ['$scope', '$timeout', 'MessageService', '$rootScope', '$stateParams', ChatCtrl]);
+    function ChatCtrl($scope, $timeout, MessageService, $rootScope, $stateParams) {
 
       //$scope.currentUser = null;
       $scope.currentText = null;
@@ -45,6 +46,5 @@
         });
       };
 
-    });
-
+    }
 }(window.angular));

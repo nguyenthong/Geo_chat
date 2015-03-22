@@ -38,7 +38,7 @@
 		    on-refresh="roomRefresh(radius)">
 		  </ion-refresher>
 		  <ion-list can-swipe="listCanSwipe">
-		    <ion-item ng-repeat="room in rooms">
+		    <ion-item ng-repeat="room in rooms" ui-sref="#">
 			    <div class="card">
 					  <div class="item item-text-wrap">
 					    <h2>{{ room.name }}</h2>
