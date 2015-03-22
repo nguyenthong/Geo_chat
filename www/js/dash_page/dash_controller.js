@@ -69,6 +69,7 @@
 
         function getRoomSuccess(container) {
           $scope.rooms = container.rooms;
+          console.log($scope.rooms);
           $scope.circles = container.circles;
         }
 

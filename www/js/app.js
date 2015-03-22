@@ -77,7 +77,7 @@ angular.module('geo_chat', [
     })
 
   .state('tab.chats', {
-      url: '/chats',
+      url: '/chats/:roomID',
       views: {
         'tab-chats': {
           templateUrl: 'templates/tab-chats.html',
@@ -85,15 +85,15 @@ angular.module('geo_chat', [
         }
       }
     })
-    .state('tab.chat-detail', {
-      url: '/chats/:chatId',
-      views: {
-        'tab-chats': {
-          templateUrl: 'templates/chat-detail.html',
-          controller: 'ChatDetailCtrl'
-        }
-      }
-    })
+    //.state('tab.chat-detail', {
+    //  url: '/chats/:chatId',
+    //  views: {
+    //    'tab-chats': {
+    //      templateUrl: 'templates/chat-detail.html',
+    //      controller: 'ChatDetailCtrl'
+    //    }
+    //  }
+    //})
 
   .state('tab.friends', {
       url: '/friends',

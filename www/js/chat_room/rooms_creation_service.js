@@ -59,14 +59,17 @@
 
         geoQuery.on("key_entered", function(key, location, distance) {
           roomRef.child(key).once("value", function (data) {
-            var room = data.val();
+            var room ={
+              roomID:  data.key(),
+              roomData: data.val()
+            };
             var circle = {
               id: key,
                 center: {
-                    latitude: room.location[0],
-                    longitude: room.location[1]
+                    latitude: room.roomData.location[0],
+                    longitude: room.roomData.location[1]
                 },
-                radius: Number(room.range),
+                radius: Number(room.roomData.range),
                 stroke: {
                     color: '#08B21F',
                     weight: 2,
