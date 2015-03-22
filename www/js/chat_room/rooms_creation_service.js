@@ -47,7 +47,7 @@
         return console.log(newRoomID);
       },
       //todo function to add user to the room
-      getRoom: function GetRooms(key,location, distance) {
+      all: function GetRooms(key,location, distance) {
         var rooms = [];
         var circles = [];
         var deferred = $q.defer();
@@ -91,6 +91,14 @@
           });
         });
         return deferred.promise;
+      },
+      get: function(chatId) {
+        for (var i = 0; i < chats.length; i++) {
+          if (chats[i].id === parseInt(chatId)) {
+            return chats[i];
+          }
+        }
+        return null;
       },
       delete: function (room) {
       // todo adding remove method

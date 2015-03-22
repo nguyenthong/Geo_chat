@@ -62,7 +62,7 @@
         var location = $scope.currentLocation;
         var key = $rootScope.user.userKey;
 
-        RoomService.getRoom(key,location, distance).
+        RoomService.all(key,location, distance).
           then(getRoomSuccess, getRoomError);
         $scope.$broadcast('scroll.refreshComplete');
         $scope.$apply();
