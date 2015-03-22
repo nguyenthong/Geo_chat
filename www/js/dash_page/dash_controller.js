@@ -56,24 +56,24 @@
 
       //Querying the rooms
       $scope.radius = 100;
-      $scope.roomRefresh = function(radius) {
+      $scope.allRooms = function(radius) {
         //data for callback
         var distance = Number(radius)* 0.001;//geofire take the distance para in kilometer
         var location = $scope.currentLocation;
         var key = $rootScope.user.userKey;
 
         RoomService.all(key,location, distance).
-          then(getRoomSuccess, getRoomError);
+          then(allRoomSuccess, allRoomError);
         $scope.$broadcast('scroll.refreshComplete');
         $scope.$apply();
 
-        function getRoomSuccess(container) {
+        function allRoomSuccess(container) {
           $scope.rooms = container.rooms;
           console.log($scope.rooms);
           $scope.circles = container.circles;
         }
 
-        function getRoomError() {
+        function allRoomError() {
           console.log("error");
         }
       };

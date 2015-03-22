@@ -35,7 +35,7 @@
 		<!--room list-->
 			<ion-refresher
 		    pulling-text="Pull to refresh..."
-		    on-refresh="roomRefresh(radius)">
+		    on-refresh="allRooms(radius)">
 		  </ion-refresher>
 		  <ion-list can-swipe="listCanSwipe">
 		    <ion-item ng-repeat="room in rooms" ui-sref="tab.chats/{{ room.roomID }}">
