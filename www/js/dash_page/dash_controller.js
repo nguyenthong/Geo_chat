@@ -31,7 +31,7 @@
             latitude: position.coords.latitude,
             longitude:  position.coords.longitude
           },
-          zoom: 15
+          zoom: 13
         };
         //Google map marker
         $scope.marker = {
