@@ -9,17 +9,23 @@
 	  <ion-item ng-repeat="message in messages">
 		  <div style="height: 5em;">
 			  <div style="position: absolute; top: 1em; left: 0.3em; z-index: 19;">
-				  <img ng-src="{{ message.imgURL }}" style="width: 3em; height: 3em; border-radius: 50%;"/>
+				  <img ng-src="{{ message.picture }}" style="width: 3em; height: 3em; border-radius: 50%;"/>
 			  </div>
 			  <h2 style="position: absolute; top: 1em; left: 3em;">{{ message.text }}</h2>
 		  </div>
 	  </ion-item>
   </ion-content>
-	 <ion-footer-bar class="">
-		 <label class="item item-input">
+	 <ion-footer-bar class="bar-stable item-input-inset message-footer">
+		 <label class="item-input-wrapper">
 			 <input type="text" placeholder="your message" ng-model="message">
 		 </label>
-	   <button class="icon ion-android-send" ng-click="sendMessage()"></button>
+		 <div class="footer-btn-wrap">
+			 <button class="button button-icon icon ion-android-send footer-btn"
+			         type="submit"
+			         ng-click="sendMessage()"
+			         ng-disabled="!message || message === ''">
+			 </button>
+		 </div>
 	 </ion-footer-bar>
 
 </ion-view>

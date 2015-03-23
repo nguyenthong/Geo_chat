@@ -8,7 +8,7 @@
 
       //$scope.currentUser = null;
       var roomId = $stateParams.roomId;
-      $scope.currentText = null;
+      $scope.message = "";
       $scope.messages = MessageService.messagesArray(roomId);
 
       //todo fix this with user profile
@@ -18,7 +18,7 @@
           $scope.messages.$add({
             sender: $rootScope.user.userKey,
             text: $scope.message,
-            imgURL: $rootScope.user.picture,
+            picture: $rootScope.user.picture,
             timestamp: Firebase.ServerValue.TIMESTAMP
           });
         }else{
