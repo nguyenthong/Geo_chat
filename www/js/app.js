@@ -77,11 +77,11 @@ angular.module('geo_chat', [
     })
 
   .state('tab.chats', {
-      url: '/chats/:roomID',
+      url: '/chats/:roomId',
       views: {
         'tab-chats': {
           templateUrl: 'templates/tab-chats.html',
-          controller: 'ChatsCtrl'
+          controller: 'ChatCtrl'
         }
       }
     })

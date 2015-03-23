@@ -4,9 +4,9 @@
   'use strict';
 
   angular.module('geo_chat')
-    .service('RoomService', ['ROOMURL', 'MSGURL', 'MEMBERURL', 'LOCATIONURL', '$q', '$firebase', RoomsService]);
+    .service('RoomService', ['ROOMURL', 'MSGURL', 'MEMBERURL', 'LOCATIONURL', '$q', '$firebaseArray', RoomsService]);
     
-  function RoomsService( ROOMURL, MSGURL, MEMBERURL, LOCATIONURL, $q, $firebase) {
+  function RoomsService( ROOMURL, MSGURL, MEMBERURL, LOCATIONURL, $q, $firebaseArray) {
     var roomRef = new Firebase(ROOMURL);
 
     var geoRoomRef = new Firebase(LOCATIONURL);
@@ -16,7 +16,7 @@
     var messageRef = new Firebase(MSGURL);
 
     var memberRef = new Firebase(MEMBERURL);
-    var fireMember = $firebase(memberRef).$asArray();
+    var fireMember = $firebaseArray(memberRef);
 
     function onComplete(data, snapshot) {
       if (data === Error){
