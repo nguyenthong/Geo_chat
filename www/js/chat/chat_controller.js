@@ -4,13 +4,9 @@
   angular.module('geo_chat')
     .controller('ChatCtrl', ['$scope', '$timeout', 'MessageService', '$rootScope', '$stateParams', ChatCtrl]);
     function ChatCtrl($scope, $timeout, MessageService, $rootScope, $stateParams) {
-      //$scope.chat = Chats.get($stateParams.chatId);
-
-      //$scope.currentUser = null;
       var roomId = $stateParams.roomId;
       $scope.message = "";
       $scope.messages = MessageService.messagesArray(roomId);
-      console.log($rootScope.user.userKey);
 
       //todo fix this with user profile
       $scope.sendMessage = function () {
