@@ -10,6 +10,7 @@
     "angular-google-maps": "~2.0.13",
     "geofire": "~3.2.1",
     "ngCordova": "~0.1.12-alpha",
-    "firebase": "~2.2.3"
+    "firebase": "~2.2.3",
+    "angular-elastic": "~2.4.2"
   }
 }
