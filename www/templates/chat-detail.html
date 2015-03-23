@@ -5,15 +5,31 @@
   The Friends service returns an array of friend data
 -->
 <ion-view view-title="{{}}">
-  <ion-content class="padding">
-	  <ion-item ng-repeat="message in messages">
-		  <div style="height: 5em;">
-			  <div style="position: absolute; top: 1em; left: 0.3em; z-index: 19;">
-				  <img ng-src="{{ message.picture }}" style="width: 3em; height: 3em; border-radius: 50%;"/>
-			  </div>
-			  <h2 style="position: absolute; top: 1em; left: 3em;">{{ message.text }}</h2>
+  <ion-content class="padding" has-bouncing="true">
+	  <div ng-repeat="message in messages" class="message-wrapper">
+		  <div ng-if="message.sender !== $rootScope.user.userKey">
+			  <img class="profile-pic left" ng-src="{{ message.picture }}" />
+			  <div class="chat-bubble left">
+				  <div class="message" ng-bind-html="message.text" >
+				  </div>
+          <div class="message-detail">
+          </div>
+        </div>
+
 		  </div>
-	  </ion-item>
+		  <!--from user text-->
+		  <div ng-if="message.sender === $rootScope.user.userKey">
+			  <img class="profile-pic right"
+			       ng-src="{{ message.picture }}" />
+			  <div class="chat-bubble right">
+				  <div class="message" ng-bind-html="message.sender" >
+				  </div>
+          <div class="message-detail">
+          </div>
+        </div>
+      </div>
+	   <div class="cf"></div>
+	  </div>
   </ion-content>
 	 <ion-footer-bar class="bar-stable item-input-inset message-footer">
 		 <label class="item-input-wrapper">

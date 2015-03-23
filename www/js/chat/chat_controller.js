@@ -10,11 +10,11 @@
       var roomId = $stateParams.roomId;
       $scope.message = "";
       $scope.messages = MessageService.messagesArray(roomId);
+      console.log($rootScope.user.userKey);
 
       //todo fix this with user profile
       $scope.sendMessage = function () {
-        console.log($scope.messages);
-        if ($scope.message !== "" && $rootScope.user !== undefined) {
+        if ($rootScope.user !== undefined) {
           $scope.messages.$add({
             sender: $rootScope.user.userKey,
             text: $scope.message,
