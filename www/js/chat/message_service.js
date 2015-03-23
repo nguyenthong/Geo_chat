@@ -11,14 +11,16 @@
           var messageRef = new Firebase(roomIdMessageURL);
           var fireMessage = $firebaseArray(messageRef);
           //todo fix this bug ?????
-          fireMessage.$add(function (data) {
-            var val = data.snapshot.value;
-            cb.call(this, {
-              user: val.user,
-              text: val.text,
-              name: data.snapshot.name
-            });
-          });
+          console.log(roomIdMessageURL);
+          //fireMessage.$add(function (data) {
+          //  var val = data.value;
+          //  console.log(data);
+            //cb.call(this, {
+            //  user: val.user,
+            //  text: val.text,
+            //  name: data.name
+            //});
+          //});
         }
       };
     }

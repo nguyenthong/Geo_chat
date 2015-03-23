@@ -80,7 +80,7 @@ angular.module('geo_chat', [
       url: '/chats/:roomId',
       views: {
         'tab-chats': {
-          templateUrl: 'templates/tab-chats.html',
+          templateUrl: 'templates/chat-detail.html',
           controller: 'ChatCtrl'
         }
       }
