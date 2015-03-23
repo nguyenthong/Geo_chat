@@ -14,12 +14,17 @@
       //todo fix this with user profile
       $scope.sendMessage = function () {
         console.log($scope.messages);
-        $scope.messages.$add({
-          sender: $rootScope.user.userKey,
-          text: $scope.message,
-          imgURL: $rootScope.user.picture,
-          timestamp: Firebase.ServerValue.TIMESTAMP
-        });
+        if ($scope.message !== "" && $rootScope.user !== undefined) {
+          $scope.messages.$add({
+            sender: $rootScope.user.userKey,
+            text: $scope.message,
+            imgURL: $rootScope.user.picture,
+            timestamp: Firebase.ServerValue.TIMESTAMP
+          });
+        }else{
+          console.log("message is missing");
+          console.log($scope.message);
+        }
 
         $scope.message = "";
       };
