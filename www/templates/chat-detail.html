@@ -7,11 +7,11 @@
 <ion-view view-title="{{chat.name}}">
   <ion-content class="padding">
   </ion-content>
-	 <ion-footer-bar class="bar-frosted">
+	 <ion-footer-bar class="">
 		 <label class="item item-input">
-				<input type="text" placeholder="your message">
-			</label>
-	   <button class="icon ion-android-send" ng-click="add()"></button>
+			 <input type="text" placeholder="your message" ng-model="message">
+		 </label>
+	   <button class="icon ion-android-send" ng-click="sendMessage()"></button>
 	 </ion-footer-bar>
 
 </ion-view>

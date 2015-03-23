@@ -6,22 +6,17 @@
     .factory('MessageService', ['MSGURL', '$q', '$firebaseArray', MessageService]);
     function MessageService( MSGURL, $q, $firebaseArray) {
       return {
-        childAdded: function childAdded(roomId, cb) {
+        messagesArray: function messagesArray(roomId) {
           var roomIdMessageURL = MSGURL.concat('/' + roomId);
           var messageRef = new Firebase(roomIdMessageURL);
-          var fireMessage = $firebaseArray(messageRef);
-          //todo fix this bug ?????
+          // create a query for the most recent 25 messages on the server
           console.log(roomIdMessageURL);
-          //fireMessage.$add(function (data) {
-          //  var val = data.value;
-          //  console.log(data);
-            //cb.call(this, {
-            //  user: val.user,
-            //  text: val.text,
-            //  name: data.name
-            //});
-          //});
+          //todo fix this bug ?????
+          return $firebaseArray(messageRef);
         }
+        //off: function turnMessagesOff() {
+        //  fireMessage.$off();
+        //}
       };
     }
 

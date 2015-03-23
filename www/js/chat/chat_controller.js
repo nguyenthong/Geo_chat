@@ -1,6 +1,6 @@
 (function (angular) {
   'use strict';
-
+  /*global Firebase*/
   angular.module('geo_chat')
     .controller('ChatCtrl', ['$scope', '$timeout', 'MessageService', '$rootScope', '$stateParams', ChatCtrl]);
     function ChatCtrl($scope, $timeout, MessageService, $rootScope, $stateParams) {
@@ -9,44 +9,38 @@
       //$scope.currentUser = null;
       var roomId = $stateParams.roomId;
       $scope.currentText = null;
-      $scope.messages = [];
+      $scope.messages = MessageService.messagesArray(roomId);
 
-      MessageService.childAdded(roomId, function (addedChild) {
-        $scope.messages.push(addedChild);
-      });
       //todo fix this with user profile
       $scope.sendMessage = function () {
-        if ($rootScope.authData) {
-          var newMessage = {
-            user: $rootScope.authData.facebook.username,
-            text: $scope.currentText,
-            imgURL: $rootScope.authData.facebook.cacheUserProfile.profile.picture.data.url
-          };
-        }
-
-        var promise = MessageService.add(newMessage);
-        promise.then(function (data) {
-          console.log(data.name());
+        console.log($scope.messages);
+        $scope.messages.$add({
+          sender: $rootScope.user.userKey,
+          text: $scope.message,
+          imgURL: $rootScope.user.picture,
+          timestamp: Firebase.ServerValue.TIMESTAMP
         });
+
+        $scope.message = "";
       };
 
       $scope.turnFeedOff = function () {
         MessageService.off();
       };
 
-      $scope.pageNext = function () {
-        var lastItem = $scope.messages[$scope.messages.length - 1];
-        MessageService.pageNext(lastItem.name, 10).then(function (messages) {
-          $scope.messages = messages;
-        });
-      };
-
-      $scope.pageBack = function () {
-        var firstItem = $scope.messages[0];
-        MessageService.pageBack(firstItem.name, 10).then(function (messages) {
-          $scope.messages = messages;
-        });
-      };
+      //$scope.pageNext = function () {
+      //  var lastItem = $scope.messages[$scope.messages.length - 1];
+      //  MessageService.pageNext(lastItem.name, 10).then(function (messages) {
+      //    $scope.messages = messages;
+      //  });
+      //};
+      //
+      //$scope.pageBack = function () {
+      //  var firstItem = $scope.messages[0];
+      //  MessageService.pageBack(firstItem.name, 10).then(function (messages) {
+      //    $scope.messages = messages;
+      //  });
+      //};
 
     }
 }(window.angular));
