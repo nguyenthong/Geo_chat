@@ -3,7 +3,8 @@
   'use strict';
 
   angular.module('geo_chat')
-    .controller('LoginCtrl', function($scope, $firebase, $firebaseAuth, FBURL, USERURL, $window, $rootScope, $state) {
+    .controller('LoginCtrl', ['$scope', '$firebase', '$firebaseAuth', 'FBURL', 'USERURL', '$window', '$rootScope', '$state', LoginCtrl]);
+    function LoginCtrl($scope, $firebase, $firebaseAuth, FBURL, USERURL, $window, $rootScope, $state) {
       var fbRef = new Firebase(FBURL);
       var authObj = $firebaseAuth(fbRef);
 
@@ -18,7 +19,7 @@
             $state.go('tab.dash');
             //todo refactor this to service
             //add new user ref to fireabase
-            userRef.child(authData.uid).$set({
+            userRef.child(authData.uid).set({
               provider: authData.provider,
               user_name: authData.facebook.displayName,
               picture: authData.facebook.cachedUserProfile.picture.data.url
@@ -74,6 +75,6 @@
       //
       //};
 
-    });
+    }
 
 }(window.angular));
