@@ -2,8 +2,8 @@
   'use strict';
 
   angular.module('geo_chat')
-    .controller('CreateRoomCtrl', ['$scope', '$cordovaGeolocation', 'uiGmapGoogleMapApi', '$timeout', 'RoomService', CreateRoomCtrl]);
-  function CreateRoomCtrl($scope, $cordovaGeolocation, uiGmapGoogleMapApi, $timeout, RoomService) {
+    .controller('CreateRoomCtrl', ['$scope', '$cordovaGeolocation', 'uiGmapGoogleMapApi', '$timeout', 'RoomService', '$state', CreateRoomCtrl]);
+  function CreateRoomCtrl($scope, $cordovaGeolocation, uiGmapGoogleMapApi, $timeout, RoomService, $state) {
     var defaultForm = {
         name: "",
         private: "",
@@ -54,6 +54,7 @@
             pushRoomData.private = false;
             pushRoomData.range = $scope.newRoom.range;
             RoomService.createRoom(pushRoomData);
+            $state.go('tab.dash');
             break;
           case !undefined:
             var pushRoomData = {
@@ -65,6 +66,7 @@
             pushRoomData.private =  $scope.newRoom.private;
             pushRoomData.range =  $scope.newRoom.range;
             RoomService.createRoom(pushRoomData);
+            $state.go('tab.dash');
             break;
         }
       }
