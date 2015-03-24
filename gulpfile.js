@@ -8,6 +8,8 @@ var rename = require('gulp-rename');
 var sh = require('shelljs');
 var connect = require('gulp-connect');
 var inject = require('gulp-inject');
+var $ = require('gulp-load-plugins')({lazy: true});
+var config = require('./gulp.config')();
 
  
 var paths = {
@@ -69,10 +71,35 @@ gulp.task('connect', function() {
   });
 });
 
-gulp.task('injectjs', function(){
+gulp.task('wiredep', function() {
+  log('Wire up the bower css js and our app js into the index.html');
+  var options = config.getWiredepDefaultOptions();
+  var wiredep = require('wiredep').stream;
+
+  return gulp
+    .src(config.index)
+    .pipe(wiredep(options))
+    .pipe($.inject(gulp.src(config.js)))
+    .pipe(gulp.dest(config.client));
+});
+
+gulp.task('injectjs',['wiredep'], function(){
   var target = gulp.src('./www/index.html');
   var sources = gulp.src([paths.appScripts]);
 
   return target.pipe(inject(sources, {relative: true}))
       .pipe(gulp.dest('./www'));
 });
+
+////
+function log(msg) {
+  if (typeof(msg) === 'object') {
+    for (var item in msg) {
+      if (msg.hasOwnProperty(item)) {
+        $.util.log($.util.colors.blue(msg[item]));
+      }
+    }
+  } else {
+    $.util.log($.util.colors.blue(msg));
+  }
+}

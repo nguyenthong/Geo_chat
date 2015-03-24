@@ -17,7 +17,9 @@
     "gulp-load-plugins": "^0.8.1",
     "gulp-ruby-sass": "^1.0.0-alpha.3",
     "gulp-util": "^2.2.14",
-    "shelljs": "^0.3.0"
+    "shelljs": "^0.3.0",
+    "wiredep": "~2.2.2",
+    "plumber": "~0.4.8"
   },
   "cordovaPlugins": [
     {

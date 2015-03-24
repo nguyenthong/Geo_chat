@@ -6,11 +6,11 @@
   },
   "dependencies": {
     "angularfire": "1.0.0",
-    "ryanmullins-angular-hammer": "~2.1.10",
     "angular-google-maps": "~2.0.13",
     "geofire": "~3.2.1",
     "ngCordova": "~0.1.12-alpha",
     "firebase": "~2.2.3",
-    "angular-elastic": "~2.4.2"
+    "angular-elastic": "~2.4.2",
+    "rsvp": "~3.0.17"
   }
 }

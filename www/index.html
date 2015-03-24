@@ -4,8 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
     <title></title>
-
-
+    <!-- bower:css -->
+    <!-- endbower -->
     <!-- compiled css output -->
     <link href="css/ionic.app.css" rel="stylesheet">
 	  <link rel="stylesheet" href="css/tab-chat.css"/>
@@ -15,17 +15,20 @@
 
     <!-- cordova script (this will be a 404 during development) -->
     <script src="lib/ngCordova/dist/ng-cordova.js"></script>
+    <!--rsvp liv-->
+    <script src="lib/rsvp/rsvp.js"></script>
+    <!---->
 
-	  <!--3rd parties libs-->
-	  <script src="lib/angular-elastic/elastic.js"></script>
-	  <script src="lib/lodash/dist/lodash.min.js"></script>
-    <script src="lib/angularfire/dist/angularfire.min.js"></script>
+    <!-- bower:js -->
+    <script src="lib/angular/angular.js"></script>
     <script src="lib/firebase/firebase.js"></script>
-	  <script src="lib/geofire/dist/geofire.js"></script>
-	  <script src="lib/rsvp/rsvp.js"></script>
-	  <script src="lib/angular-google-maps/dist/angular-google-maps.min.js"></script>
-    <!--<script src="lib/hammerjs/hammer.js"></script>-->
-	  <!--<script src="lib/ryanmullins-angular-hammer/angular.hammer.js"></script>-->
+    <script src="lib/angularfire/dist/angularfire.js"></script>
+    <script src="lib/lodash/dist/lodash.compat.js"></script>
+    <script src="lib/angular-google-maps/dist/angular-google-maps.js"></script>
+    <script src="lib/geofire/dist/geofire.js"></script>
+    <script src="lib/angular-elastic/elastic.js"></script>
+    <!-- endbower -->
+
 	  <!-- inject:js -->
     <script src="js/app.js"></script>
     <script src="js/chat/chat_controller.js"></script>
@@ -37,8 +40,8 @@
     <script src="js/dash_page/get_user_service.js"></script>
     <script src="js/login/login_controller.js"></script>
     <script src="js/logout/logout_controller.js"></script>
-    <script src="js/map/map_controller.js"></script>
     <script src="js/register/RegisterCtrl.js"></script>
+    <script src="js/map/map_controller.js"></script>
     <script src="js/services/services.js"></script>
     <script src="js/services/state-watcher.service.js"></script>
     <!-- endinject -->
