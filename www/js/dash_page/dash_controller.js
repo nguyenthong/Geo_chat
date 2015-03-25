@@ -69,7 +69,7 @@
 
         function allRoomSuccess(container) {
           $scope.rooms = container.rooms;
-          console.log($scope.rooms);
+          console.log(container);
           $scope.circles = container.circles;
         }
 

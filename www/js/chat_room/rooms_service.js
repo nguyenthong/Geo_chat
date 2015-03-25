@@ -50,44 +50,54 @@
       all: function allRooms(key,location, distance) {
         var rooms = [];
         var circles = [];
+        var DISTANCE_ADDED = 1; //query more rooms than calculate to display
         var deferred = $q.defer();
         var geoQuery = geoFire.query({
           center: location,
-          radius: distance
+          radius: distance + DISTANCE_ADDED
           //radius in kilometers
           });
 
         geoQuery.on("key_entered", function(key, location, distance) {
           roomRef.child(key).once("value", function (data) {
-            var room ={
-              roomID:  data.key(),
-              roomData: data.val()
-            };
-            var circle = {
-              id: key,
-                center: {
-                    latitude: room.roomData.location[0],
-                    longitude: room.roomData.location[1]
-                },
-                radius: Number(room.roomData.range),
-                stroke: {
-                    color: '#08B21F',
-                    weight: 2,
-                    opacity: 1
-                },
-                fill: {
-                    color: '#08B21F',
-                    opacity: 0.5
-                }
-            };
-
-            rooms.push(room);
-            circles.push(circle);
-            var container = {
-              rooms: rooms,
-              circles: circles
-            };
-            deferred.resolve(container);
+            console.log(key + " entered query at " + location + " (" + distance + " km from center)");
+            var room = {};
+            var circle = {};
+            var radius = Number(data.val().range);
+            userInCircleDetection();
+          //  decorator function
+            function userInCircleDetection() {
+              if (distance*1000 <= radius){//distance comeback in kilometer
+                room ={
+                  roomID:  data.key(),
+                  roomData: data.val()
+                };
+                circle = {
+                  id: key,
+                    center: {
+                      latitude: room.roomData.location[0],
+                      longitude: room.roomData.location[1]
+                    },
+                    radius: Number(room.roomData.range),
+                    stroke: {
+                      color: '#08B21F',
+                      weight: 2,
+                      opacity: 1
+                    },
+                    fill: {
+                      color: '#08B21F',
+                      opacity: 0.5
+                    }
+                };
+                rooms.push(room);
+                circles.push(circle);
+                var container = {
+                  rooms: rooms,
+                  circles: circles
+                };
+               deferred.resolve(container);
+              }
+            }
           });
         });
         return deferred.promise;
