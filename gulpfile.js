@@ -19,7 +19,7 @@ var paths = {
 };
  
 gulp.task('default', ['sass']);
-gulp.task('serve', ['connect', 'watch']);
+gulp.task('serve', ['watch']);
  
 gulp.task('sass', function(done) {
   gulp.src('./scss/ionic.app.scss')
@@ -61,14 +61,6 @@ gulp.task('git-check', function(done) {
     process.exit(1);
   }
   done();
-});
- 
-gulp.task('connect', function() {
-  connect.server({
-    root: 'www',
-    port: '1881',
-    livereload: true
-  });
 });
 
 gulp.task('wiredep', function() {
