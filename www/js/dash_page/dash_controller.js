@@ -17,7 +17,7 @@
       }
 
       //todo memory leak issue, also in RoomCrtl, checkout https://github.com/dylanfprice/angular-gm, or using partial
-      var posOptions = {timeout: 1000, maximumAge:1000, enableHighAccuracy: false};
+      var posOptions = {timeout: 10000, maximumAge:1000, enableHighAccuracy: false};
       //checking the user position every 1s
       $timeout(function () {
         $cordovaGeolocation
