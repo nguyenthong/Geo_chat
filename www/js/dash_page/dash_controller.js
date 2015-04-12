@@ -57,7 +57,6 @@
       });
 
       //Querying the rooms
-      $scope.radius = 100;
       $scope.allRooms = function(radius) {
         //data for callback
         var distance = Number(radius)* 0.001;//geofire take the distance para in kilometer
