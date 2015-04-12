@@ -4,7 +4,7 @@
    .controller('DashCtrl',['$scope', '$rootScope', '$log','$timeout', '$cordovaGeolocation','uiGmapGoogleMapApi', 'GetProfileService', 'RoomService', DashCtrl]);
 
     function DashCtrl($scope,$rootScope, $log, $timeout, $cordovaGeolocation, uiGmapGoogleMapApi, GetProfileService, RoomService) {
-
+      //initial rooms in range 100m
       GetProfileService.userProfile()
       .then(getUserSuccess, getUserError);
 
@@ -43,6 +43,8 @@
         $scope.currentLocation = [position.coords.latitude, position.coords.longitude];
       //  save current user location to the firebase for Geoquery every 1s
         GetProfileService.userLocationKey($scope.currentLocation);
+      //  initialize the the rooms
+        $scope.allRooms(100);
       }
       function getLocationError(err) {
         console.log(err);
@@ -80,4 +82,3 @@
 
     }
 })(window.angular);
-

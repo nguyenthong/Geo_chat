@@ -27,7 +27,7 @@
 		</ui-gmap-google-map>
 			<!--radius-->
 		<div class="range" id="radius-range" >
-		  <input type="range" name="volume"  min=0 max=1000 ng-model="radius">
+		  <input type="range" name="volume"  min=0 max=1000 step="100" ng-model="radius">
 			<p>meter</p>
 		</div>
 
@@ -35,7 +35,8 @@
 		<!--room list-->
 			<ion-refresher
 		    pulling-text="Pull to refresh..."
-		    on-refresh="allRooms(radius)">
+		    on-refresh="allRooms(radius)"
+				>
 		  </ion-refresher>
 		  <ion-list can-swipe="listCanSwipe">
 		    <ion-item ng-repeat="room in rooms" ui-sref="tab.chats({ roomId: room.roomID })">
