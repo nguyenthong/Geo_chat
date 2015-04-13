@@ -55,6 +55,8 @@
       $scope.options = {scrollwheel: true};
       uiGmapGoogleMapApi.then(function(maps) {
       });
+      //initila value for radius
+      $scope.radius = 100;
 
       //Querying the rooms
       $scope.allRooms = function(radius) {
