@@ -43,26 +43,20 @@
         $scope.errorMes = "*Range is required";
       }
       else{
-        switch ( $scope.newRoom.private){
-          case undefined:
-            var pushRoomData = {
+        var pushRoomData = {
               name:  $scope.newRoom.name,
               private:  $scope.newRoom.private,
               range:  $scope.newRoom.range,
               location: [$scope.map.center.latitude, $scope.map.center.longitude]
             };
+        switch ( $scope.newRoom.private){
+          case undefined:
             pushRoomData.private = false;
             pushRoomData.range = $scope.newRoom.range;
             RoomService.createRoom(pushRoomData);
             $state.go('tab.dash');
             break;
           case !undefined:
-            var pushRoomData = {
-              name:  $scope.newRoom.name,
-              private:  $scope.newRoom.private,
-              range:  $scope.newRoom.range,
-              location: [$scope.map.center.latitude, $scope.map.center.longitude]
-            };
             pushRoomData.private =  $scope.newRoom.private;
             pushRoomData.range =  $scope.newRoom.range;
             RoomService.createRoom(pushRoomData);
