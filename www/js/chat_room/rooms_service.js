@@ -18,20 +18,16 @@
     var memberRef = new Firebase(MEMBERURL);
     var fireMember = $firebaseArray(memberRef);
 
-    function onComplete(data, snapshot) {
-      if (data === Error){
-        console.log(Error);
-      }else{
-        //todo making ionic show success message
-        var successMes = "Your Room is created";
-        console.log(successMes);
-      }
-    }
-
     return {
       createRoom: function CreateRoom(newRoom) {
+        var deferred = $q.defer();
         //todo fix the memberRef and MessageRef creation base on newRoomRef.key(()
-        var newRoomRef = roomRef.push(newRoom, onComplete);
+        var newRoomRef = roomRef.push(newRoom, function(error) {
+          if(error === null){
+            var successMessage = "Your room is created";
+            deferred.resolve(successMessage);
+          }
+        });
         var newRoomID = newRoomRef.key();
         //using newRoomID to set ID for messages, locations, members
         memberRef.child(newRoomRef.key()).set({
@@ -44,7 +40,7 @@
         });
         //setting location for the room
         geoFire.set(newRoomRef.key(),newRoom.location);
-        return console.log(newRoomID);
+        return deferred.promise;
       },
       //todo function to add user to the room
       all: function allRooms(key,location, distance) {

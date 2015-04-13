@@ -2,8 +2,8 @@
   'use strict';
 
   angular.module('geo_chat')
-    .controller('CreateRoomCtrl', ['$scope', '$cordovaGeolocation', 'uiGmapGoogleMapApi', '$timeout', 'RoomService', '$state', CreateRoomCtrl]);
-  function CreateRoomCtrl($scope, $cordovaGeolocation, uiGmapGoogleMapApi, $timeout, RoomService, $state) {
+    .controller('CreateRoomCtrl', ['$scope', '$cordovaGeolocation', 'uiGmapGoogleMapApi', '$timeout','$ionicLoading', 'RoomService', '$state', CreateRoomCtrl]);
+  function CreateRoomCtrl($scope, $cordovaGeolocation, uiGmapGoogleMapApi, $timeout, $ionicLoading, RoomService, $state) {
     var defaultForm = {
         name: "",
         private: "",
@@ -43,6 +43,7 @@
         $scope.errorMes = "*Range is required";
       }
       else{
+        startLoading();
         var pushRoomData = {
               name:  $scope.newRoom.name,
               private:  $scope.newRoom.private,
@@ -53,20 +54,29 @@
           case undefined:
             pushRoomData.private = false;
             pushRoomData.range = $scope.newRoom.range;
-            RoomService.createRoom(pushRoomData);
-            $state.go('tab.dash');
+            RoomService.createRoom(pushRoomData)
+              .then(stopLoading);
             break;
           case !undefined:
             pushRoomData.private =  $scope.newRoom.private;
             pushRoomData.range =  $scope.newRoom.range;
-            RoomService.createRoom(pushRoomData);
-            $state.go('tab.dash');
+            RoomService.createRoom(pushRoomData)
+              .then(stopLoading);
             break;
         }
       }
       $scope.newRoom = defaultForm;
 
     };
+    //stop loading icon
+     function startLoading() {
+      $ionicLoading.show({
+        templateURL:'loading/loading.html'
+      });
+    }
+    function stopLoading() {
+      $ionicLoading.hide();
+    }
     // Querying the room
 
 
