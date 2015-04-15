@@ -2,8 +2,8 @@
   'use strict';
 
   angular.module('geo_chat')
-    .controller('CreateRoomCtrl', ['$scope', '$cordovaGeolocation', 'uiGmapGoogleMapApi', '$timeout','$ionicLoading', '$ionicModal', 'RoomService', CreateRoomCtrl]);
-  function CreateRoomCtrl($scope, $cordovaGeolocation, uiGmapGoogleMapApi, $timeout, $ionicLoading, $ionicModal, RoomService) {
+    .controller('CreateRoomCtrl', ['$scope', '$cordovaGeolocation', 'uiGmapGoogleMapApi', '$timeout', '$state', '$ionicLoading', '$ionicModal', 'RoomService', CreateRoomCtrl]);
+  function CreateRoomCtrl($scope, $cordovaGeolocation, uiGmapGoogleMapApi, $timeout, $state, $ionicLoading, $ionicModal, RoomService) {
      $scope.rooms = [];
     //Get location of user
     var posOptions = {timeout: 10000, enableHighAccuracy: true};
@@ -71,8 +71,11 @@
           $scope.modal = modal;
         });
 
-    $scope.gotoDashPage = function () {
-
+    $scope.closeModal = function () {
+      $timeout(function () {
+        if($state.is('tab.dash')){
+          $scope.modal.remove();
+      }}, 300);
     };
     //stop loading icon
     function startLoading() {
@@ -83,6 +86,7 @@
     function stopLoading() {
       $ionicLoading.hide();
       $scope.modal.show();
+
     }
     // Querying the room
 

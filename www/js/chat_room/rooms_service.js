@@ -56,7 +56,9 @@
 
         geoQuery.on("key_entered", function(key, location, distance) {
           roomRef.child(key).once("value", function (data) {
+            //todo remove this in production
             console.log(key + " entered query at " + location + " (" + distance + " km from center)");
+            console.log(data.val());
             var room = {};
             var circle = {};
             var radius = Number(data.val().range);
