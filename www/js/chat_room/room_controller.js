@@ -2,16 +2,11 @@
   'use strict';
 
   angular.module('geo_chat')
-    .controller('CreateRoomCtrl', ['$scope', '$cordovaGeolocation', 'uiGmapGoogleMapApi', '$timeout','$ionicLoading', '$ionicModal', 'RoomService', '$state', CreateRoomCtrl]);
-  function CreateRoomCtrl($scope, $cordovaGeolocation, uiGmapGoogleMapApi, $timeout, $ionicLoading, $ionicModal, RoomService, $state) {
-    var defaultForm = {
-        name: "",
-        private: "",
-        range: ""
-      };
+    .controller('CreateRoomCtrl', ['$scope', '$cordovaGeolocation', 'uiGmapGoogleMapApi', '$timeout','$ionicLoading', '$ionicModal', 'RoomService', CreateRoomCtrl]);
+  function CreateRoomCtrl($scope, $cordovaGeolocation, uiGmapGoogleMapApi, $timeout, $ionicLoading, $ionicModal, RoomService) {
      $scope.rooms = [];
     //Get location of user
-    var posOptions = {timeout: 1000, enableHighAccuracy: true};
+    var posOptions = {timeout: 10000, enableHighAccuracy: true};
       $cordovaGeolocation
         .getCurrentPosition(posOptions)
         .then(getLocationSuccess, getLocationError);
@@ -65,17 +60,29 @@
             break;
         }
       }
-      $scope.newRoom = defaultForm;
+      $scope.newRoom = {};
+
+    };
+    //modal for confirm message
+    $ionicModal.fromTemplateUrl('successInfo.html', {
+        scope: $scope,
+        animation: 'slide-in-up'
+      }).then(function(modal) {
+          $scope.modal = modal;
+        });
+
+    $scope.gotoDashPage = function () {
 
     };
     //stop loading icon
-     function startLoading() {
+    function startLoading() {
       $ionicLoading.show({
       template: '<ion-spinner icon="ripple" class="spinner-balanced">Your Room is creating</ion-spinner>'
       });
     }
     function stopLoading() {
       $ionicLoading.hide();
+      $scope.modal.show();
     }
     // Querying the room
 
