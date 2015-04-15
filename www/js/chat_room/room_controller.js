@@ -2,8 +2,8 @@
   'use strict';
 
   angular.module('geo_chat')
-    .controller('CreateRoomCtrl', ['$scope', '$cordovaGeolocation', 'uiGmapGoogleMapApi', '$timeout','$ionicLoading', 'RoomService', '$state', CreateRoomCtrl]);
-  function CreateRoomCtrl($scope, $cordovaGeolocation, uiGmapGoogleMapApi, $timeout, $ionicLoading, RoomService, $state) {
+    .controller('CreateRoomCtrl', ['$scope', '$cordovaGeolocation', 'uiGmapGoogleMapApi', '$timeout','$ionicLoading', '$ionicModal', 'RoomService', '$state', CreateRoomCtrl]);
+  function CreateRoomCtrl($scope, $cordovaGeolocation, uiGmapGoogleMapApi, $timeout, $ionicLoading, $ionicModal, RoomService, $state) {
     var defaultForm = {
         name: "",
         private: "",
@@ -36,13 +36,13 @@
     $scope.newRoom = {};
 
     $scope.createRoom = function () {
-      if ( $scope.newRoom.name === undefined){
+      if ( $scope.newRoom.name === undefined || $scope.newRoom.name === ''){
         $scope.errorMes = "*Room name is required";
       }
       else if ( $scope.newRoom.range === undefined ){
         $scope.errorMes = "*Range is required";
       }
-      else{
+      else {
         startLoading();
         var pushRoomData = {
               name:  $scope.newRoom.name,
@@ -71,7 +71,7 @@
     //stop loading icon
      function startLoading() {
       $ionicLoading.show({
-        templateURL:'loading/loading.html'
+      template: '<ion-spinner icon="ripple" class="spinner-balanced">Your Room is creating</ion-spinner>'
       });
     }
     function stopLoading() {
