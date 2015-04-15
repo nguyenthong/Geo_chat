@@ -39,7 +39,7 @@
       if ( $scope.newRoom.name === undefined || $scope.newRoom.name === ''){
         $scope.errorMes = "*Room name is required";
       }
-      else if ( $scope.newRoom.range === undefined ){
+      else if ( $scope.newRoom.range === undefined || $scope.newRoom.range === '' ){
         $scope.errorMes = "*Range is required";
       }
       else {
