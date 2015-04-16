@@ -45,9 +45,12 @@ gulp.task('watch', function() {
  
 gulp.task('install', ['git-check'], function() {
   return bower.commands.install()
+    .pipe(gulp.dest('./www/lib/'))
     .on('log', function(data) {
       gutil.log('bower', gutil.colors.cyan(data.id), data.message);
     });
+
+
 });
  
 gulp.task('git-check', function(done) {

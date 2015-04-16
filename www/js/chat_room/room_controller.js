@@ -3,7 +3,7 @@
 
   angular.module('geo_chat')
     .controller('CreateRoomCtrl', ['$scope', '$cordovaGeolocation', 'uiGmapGoogleMapApi', '$timeout', '$state', '$ionicLoading', '$ionicModal', 'RoomService', CreateRoomCtrl]);
-  function CreateRoomCtrl($scope, $cordovaGeolocation, uiGmapGoogleMapApi, $timeout, $state, $ionicLoading, $ionicModal, RoomService) {
+  function CreateRoomCtrl( $scope, $cordovaGeolocation, uiGmapGoogleMapApi, $timeout, $state, $ionicLoading, $ionicModal, RoomService) {
      $scope.rooms = [];
     //Get location of user
     var posOptions = {timeout: 10000, enableHighAccuracy: true};
@@ -40,11 +40,11 @@
       else {
         startLoading();
         var pushRoomData = {
-              name:  $scope.newRoom.name,
-              private:  $scope.newRoom.private,
-              range:  $scope.newRoom.range,
-              location: [$scope.map.center.latitude, $scope.map.center.longitude]
-            };
+          name:  $scope.newRoom.name,
+          private:  $scope.newRoom.private,
+          range:  $scope.newRoom.range,
+          location: [$scope.map.center.latitude, $scope.map.center.longitude],
+        };
         switch ( $scope.newRoom.private){
           case undefined:
             pushRoomData.private = false;
@@ -91,7 +91,7 @@
     // Querying the room
 
 
-    $scope.options = {scrollwheel: false};
+    //$scope.options = {scrollwheel: false};
 
 
   }
