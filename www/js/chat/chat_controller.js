@@ -2,11 +2,13 @@
   'use strict';
   /*global Firebase*/
   angular.module('geo_chat')
-    .controller('ChatCtrl', ['$scope', '$timeout', 'MessageService', '$rootScope', '$stateParams', ChatCtrl]);
-    function ChatCtrl($scope, $timeout, MessageService, $rootScope, $stateParams) {
+    .controller('ChatCtrl', ['$scope', '$timeout', 'MessageService', '$rootScope', '$stateParams', '$ionicScrollDelegate', ChatCtrl]);
+    function ChatCtrl($scope, $timeout, MessageService, $rootScope, $stateParams, $ionicScrollDelegate) {
+
       var roomId = $stateParams.roomId;
       $scope.message = "";
       $scope.messages = MessageService.messagesArray(roomId);
+      $ionicScrollDelegate.scrollBottom(true);
 
       //todo fix this with user profile
       $scope.sendMessage = function () {
@@ -17,6 +19,7 @@
             picture: $rootScope.user.picture,
             timestamp: Firebase.ServerValue.TIMESTAMP
           });
+           $ionicScrollDelegate.scrollBottom(true);
         }else{
           console.log("message is missing");
           console.log($scope.message);
