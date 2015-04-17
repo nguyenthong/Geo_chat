@@ -6,7 +6,7 @@
   },
   "dependencies": {
     "angularfire": "1.0.0",
-    "angular-google-maps": "~2.0.17",
+    "angular-google-maps": "2.1.0-X.10",
     "geofire": "~3.2.1",
     "ngCordova": "~0.1.12-alpha",
     "firebase": "~2.2.3",
