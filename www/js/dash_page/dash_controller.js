@@ -31,6 +31,21 @@
             latitude: position.coords.latitude,
             longitude:  position.coords.longitude
           },
+          events: {
+            tilesloaded: function (map) {
+              $scope.$apply(function () {
+                 uiGmapGoogleMapApi.then(function(maps) {
+                   //var map = new google.maps.Map;
+                   var zoomLevel = map.getZoom();
+                   var viewPort = map.getBounds();
+                   var ne = viewPort.getNorthEast();
+                   var sw = viewPort.getSouthWest();
+                   var distance = maps.geometry.spherical.computeDistanceBetween(ne, sw);
+                   $log.info('this is the map instance', distance);
+                 });
+              });
+            }
+          },
           zoom: 13
         };
         //Google map marker
@@ -51,10 +66,9 @@
       }
       setTimeout(getLocationSuccess, 0);
 
-
+      //google maps interactive
       $scope.options = {scrollwheel: true};
-      uiGmapGoogleMapApi.then(function(maps) {
-      });
+
       //initila value for radius
       $scope.radius = 100;
 

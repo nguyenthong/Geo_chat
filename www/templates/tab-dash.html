@@ -13,7 +13,7 @@
 		</div>
 
 		<!--map-->
-			<ui-gmap-google-map center="map.center" zoom="map.zoom" draggable="true">
+			<ui-gmap-google-map center="map.center" zoom="map.zoom" events="map.events" draggable="true">
 				<ui-gmap-marker coords="map.center" options="marker.options" events="marker.events" idkey="marker.id">
 				</ui-gmap-marker>
 				<ui-gmap-circle
@@ -57,7 +57,7 @@
 <style>
 	.angular-google-map,
 	.angular-google-map-container {
-		height: 25em;
+		height: 22em;
 	}
 
 	#range-indicator{
