@@ -7,15 +7,15 @@
 		</div>
 			<!--radius indicator-->
 		<div id="range-indicator">
-			<h2 style="text-align: center; margin-top: 25%; color: white; ">
+			<h2 style="text-align: center; margin-top: 25%; color: white;">
 				{{ radius }}
 			</h2>
 		</div>
 
 		<!--map-->
-		<ui-gmap-google-map center="map.center" zoom="map.zoom">
-			<ui-gmap-marker coords="map.center" options="marker.options" events="marker.events" idkey="marker.id">
-      </ui-gmap-marker>
+			<ui-gmap-google-map center="map.center" zoom="map.zoom" draggable="true">
+				<ui-gmap-marker coords="map.center" options="marker.options" events="marker.events" idkey="marker.id">
+				</ui-gmap-marker>
 				<ui-gmap-circle
 					ng-repeat="c in circles track by c.id"
 					center="c.center"
@@ -24,7 +24,7 @@
 					radius="c.radius">
 				</ui-gmap-circle>
 
-		</ui-gmap-google-map>
+			</ui-gmap-google-map>
 			<!--radius-->
 		<div class="range" id="radius-range" >
 		  <input type="range" name="volume"  min=0 max=1000 step="100" ng-model="radius">
@@ -55,10 +55,11 @@
 </ion-view>
 <!--style for google map-->
 <style>
+	.angular-google-map,
 	.angular-google-map-container {
-		z-index: -1;
-		height: 13em;
+		height: 25em;
 	}
+
 	#range-indicator{
 		position: absolute;
 		top: 7em;
@@ -67,7 +68,8 @@
 		width: 5em;
 		border-radius: 50%;
 		box-shadow: 7px 7px 10px rgba(0, 0, 0, 0.5);
-		background-color: #00bcd4
+		background-color: #00bcd4;
+		z-index: 19;
 	}
 
 </style>
