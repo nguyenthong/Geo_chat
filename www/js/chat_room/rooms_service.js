@@ -57,8 +57,8 @@
         geoQuery.on("key_entered", function(key, location, distance) {
           roomRef.child(key).once("value", function (data) {
             //todo remove this in production
-            console.log(key + " entered query at " + location + " (" + distance + " km from center)");
-            console.log(data.val());
+            //console.log(key + " entered query at " + location + " (" + distance + " km from center)");
+            //console.log(data.val());
             var room = {};
             var circle = {};
             var radius = Number(data.val().range);
@@ -78,7 +78,7 @@
                     },
                     radius: Number(room.roomData.range),
                     stroke: {
-                      color: '#08B21F',
+                      color: '#08B21F', //green color indicate for accessible rooms
                       weight: 2,
                       opacity: 1
                     },
@@ -89,15 +89,39 @@
                 };
                 rooms.push(room);
                 circles.push(circle);
-                var container = {
-                  rooms: rooms,
-                  circles: circles
+              }
+              else{
+                room ={
+                  roomID:  data.key(),
+                  roomData: data.val()
                 };
-               deferred.resolve(container);
+                var outOfRangeCircle = {
+                  id: key,
+                    center: {
+                      latitude: room.roomData.location[0],
+                      longitude: room.roomData.location[1]
+                    },
+                    radius: Number(room.roomData.range),
+                    stroke: {
+                      color: '#ff4081', //red color indicate for non-accessible rooms
+                      weight: 2,
+                      opacity: 1
+                    },
+                    fill: {
+                      color: '#ff4081',
+                      opacity: 0.5
+                    }
+                };
+                circles.push(outOfRangeCircle);
               }
             }
           });
         });
+        var container = {
+          rooms: rooms,
+          circles: circles
+        };
+        deferred.resolve(container);
         return deferred.promise;
       },
       get: function getRoom(chatId) {
