@@ -4,7 +4,7 @@
    .controller('DashCtrl',['$scope', '$rootScope', '$log','$timeout', '$cordovaGeolocation','uiGmapGoogleMapApi', 'GetProfileService', 'RoomService', DashCtrl]);
 
     function DashCtrl($scope,$rootScope, $log, $timeout, $cordovaGeolocation, uiGmapGoogleMapApi, GetProfileService, RoomService) {
-      //initial rooms in range 100m
+
       GetProfileService.userProfile()
       .then(getUserSuccess, getUserError);
 
@@ -31,17 +31,31 @@
             latitude: position.coords.latitude,
             longitude:  position.coords.longitude
           },
-          events: {
+          events: { // event return query value from firebase base on Viewport of user map
             tilesloaded: function (map) {
               $scope.$apply(function () {
                  uiGmapGoogleMapApi.then(function(maps) {
                    //var map = new google.maps.Map;
+                   var key = $rootScope.user.userKey; // key for querying geofire
                    var zoomLevel = map.getZoom();
                    var viewPort = map.getBounds();
-                   var ne = viewPort.getNorthEast();
-                   var sw = viewPort.getSouthWest();
-                   var distance = maps.geometry.spherical.computeDistanceBetween(ne, sw);
-                   $log.info('this is the map instance', distance);
+                   var locationObj = viewPort.getCenter();
+                   var neObj = viewPort.getNorthEast();
+                   var swObj = viewPort.getSouthWest();
+                   // convert object to array for geofire query
+                   var neArr = objToArray(neObj);
+                   var locationArr = objToArray(locationObj);
+
+                   function objToArray(obj) {
+                     var arr = Object.keys(obj).map(function (i) {
+                       return obj[i];
+                     });
+                     return arr;
+                   }
+                   var distance = maps.geometry.spherical.computeDistanceBetween(neObj, locationObj) *0.001;
+                   $log.info('this is the map instance', locationArr);
+                   RoomService.all(key, locationArr, distance).
+                     then(allRoomSuccess, allRoomError);
                  });
               });
             }
@@ -75,25 +89,26 @@
       //Querying the rooms
       $scope.allRooms = function(radius) {
         //data for callback
+        var key = $rootScope.user.userKey; // key for querying geofire
         var distance = Number(radius)* 0.001;//geofire take the distance para in kilometer
         var location = $scope.currentLocation;
-        var key = $rootScope.user.userKey;
 
         RoomService.all(key,location, distance).
           then(allRoomSuccess, allRoomError);
         $scope.$broadcast('scroll.refreshComplete');
         $scope.$apply();
 
-        function allRoomSuccess(container) {
+      };
+
+      function allRoomSuccess(container) {
           $scope.rooms = container.rooms;
           console.log(container);
           $scope.circles = container.circles;
         }
 
-        function allRoomError() {
-          console.log("error");
-        }
-      };
+      function allRoomError(e) {
+        console.log(e);
+      }
 
     }
 })(window.angular);
