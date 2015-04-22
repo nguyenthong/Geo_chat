@@ -4,17 +4,13 @@
    .controller('DashCtrl',['$scope', '$rootScope', '$log','$timeout', '$cordovaGeolocation','uiGmapGoogleMapApi', 'GetProfileService', 'RoomService', DashCtrl]);
 
     function DashCtrl($scope,$rootScope, $log, $timeout, $cordovaGeolocation, uiGmapGoogleMapApi, GetProfileService, RoomService) {
+      //initila value for radius
+      $scope.radius = 100;
+      var range = $scope.radius;
 
+      //get user profile
       GetProfileService.userProfile()
       .then(getUserSuccess, getUserError);
-
-      function getUserSuccess (user){
-        $rootScope.user = user;
-      }
-
-      function getUserError (){
-        console.log("Error happen");
-      }
 
       //todo memory leak issue, also in RoomCrtl, checkout https://github.com/dylanfprice/angular-gm, or using partial
       var posOptions = {timeout: 10000, maximumAge:1000, enableHighAccuracy: false};
@@ -25,6 +21,26 @@
           .then(getLocationSuccess, getLocationError);
       }, 1000);
 
+      setTimeout(getLocationSuccess, 0);
+
+      //google maps interactive
+      $scope.options = {scrollwheel: true};
+
+      //Querying the rooms
+      $scope.allRooms = function(radius) {
+        //data for callback
+        var key = $rootScope.user.userKey; // key for querying geofire
+        var distance = Number(radius)* 0.001;//geofire take the distance para in kilometer
+        var location = $scope.currentLocation;
+
+        RoomService.all(key,location, distance, user_location, range).
+          then(allRoomSuccess, allRoomError);
+        $scope.$broadcast('scroll.refreshComplete');
+        $scope.$apply();
+
+      };
+
+      //declare
       function getLocationSuccess(position) {
         $scope.map = {
           center: {
@@ -54,7 +70,7 @@
                    }
                    var distance = maps.geometry.spherical.computeDistanceBetween(neObj, locationObj) *0.001;
                    $log.info('this is the map instance', locationArr);
-                   RoomService.all(key, locationArr, distance).
+                   RoomService.all(key, locationArr, distance, user_location, range ).
                      then(allRoomSuccess, allRoomError);
                  });
               });
@@ -70,35 +86,23 @@
         };
         //saving user location in 2 differnt types of data
         $scope.currentLocation = [position.coords.latitude, position.coords.longitude];
+        var user_location = $scope.currentLocation;
       //  save current user location to the firebase for Geoquery every 1s
         GetProfileService.userLocationKey($scope.currentLocation);
       //  initialize the the rooms
         $scope.allRooms(100);
       }
+
       function getLocationError(err) {
         console.log(err);
       }
-      setTimeout(getLocationSuccess, 0);
+      function getUserSuccess (user){
+        $rootScope.user = user;
+      }
 
-      //google maps interactive
-      $scope.options = {scrollwheel: true};
-
-      //initila value for radius
-      $scope.radius = 100;
-
-      //Querying the rooms
-      $scope.allRooms = function(radius) {
-        //data for callback
-        var key = $rootScope.user.userKey; // key for querying geofire
-        var distance = Number(radius)* 0.001;//geofire take the distance para in kilometer
-        var location = $scope.currentLocation;
-
-        RoomService.all(key,location, distance).
-          then(allRoomSuccess, allRoomError);
-        $scope.$broadcast('scroll.refreshComplete');
-        $scope.$apply();
-
-      };
+      function getUserError (){
+        console.log("Error happen");
+      }
 
       function allRoomSuccess(container) {
           $scope.rooms = container.rooms;
