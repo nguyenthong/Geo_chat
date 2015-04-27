@@ -70,7 +70,7 @@
                    }
                    var distance = maps.geometry.spherical.computeDistanceBetween(neObj, locationObj) *0.001;
                    $log.info('this is the map instance', locationArr);
-                   RoomService.all(key, locationArr, distance, user_location, range ).
+                  RoomService.all(key, locationArr, distance, user_location, range ).
                      then(allRoomSuccess, allRoomError);
                  });
               });
