@@ -58,7 +58,7 @@ angular.module('geo_chat', [
 
   .state('tab.dash', {
     url: '/dash',
-    //abstract: true,
+    cache: false,
     views: {
       'tab-dash': {
         templateUrl: 'templates/tab-dash.html',
@@ -114,16 +114,6 @@ angular.module('geo_chat', [
         }
       }
     })
-
-  .state('tab.account', {
-    url: '/account',
-    views: {
-      'tab-account': {
-        templateUrl: 'templates/tab-account.html',
-        controller: 'AccountCtrl'
-      }
-    }
-  })
 
   .state('login', {
     url: '/login' ,
