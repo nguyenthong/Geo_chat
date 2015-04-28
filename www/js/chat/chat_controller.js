@@ -2,8 +2,10 @@
   'use strict';
   /*global Firebase*/
   angular.module('geo_chat')
-    .controller('ChatCtrl', ['$scope', '$timeout', 'MessageService', '$rootScope', '$stateParams', '$ionicScrollDelegate', ChatCtrl]);
-  function ChatCtrl($scope, $timeout, MessageService, $rootScope, $stateParams, $ionicScrollDelegate) {
+    .controller('ChatCtrl', ['$scope', '$timeout', 'MessageService',
+      '$rootScope', '$stateParams', '$ionicScrollDelegate', ChatCtrl]);
+  function ChatCtrl($scope, $timeout, MessageService,
+                    $rootScope, $stateParams, $ionicScrollDelegate) {
 
     var roomId = $stateParams.roomId;
     $scope.message = "";
