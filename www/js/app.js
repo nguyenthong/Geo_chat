@@ -30,16 +30,16 @@ angular.module('geo_chat', [
 })
 //  todo remove this in production
 .run(['$state', 'stateWatcherService', function ($state, stateWatcherService) {
-      // Include $route to kick start the router.
+  // Include $route to kick start the router.
 }])
 
 .config(function($stateProvider, $urlRouterProvider, uiGmapGoogleMapApiProvider) {
-   //angularUi-google-map config
-   uiGmapGoogleMapApiProvider.configure({
-      //key: 'AIzaSyBKC4Ti0xa6OnWBiPWgmlPR3trlVl2cQho',
-      v: '3.17',
-      libraries: 'weather,geometry,visualization'
-   });
+  //angularUi-google-map config
+  uiGmapGoogleMapApiProvider.configure({
+    //key: 'AIzaSyBKC4Ti0xa6OnWBiPWgmlPR3trlVl2cQho',
+    v: '3.17',
+    libraries: 'weather,geometry,visualization'
+  });
 
   // Ionic uses AngularUI Router which uses the concept of states
   // Learn more here: https://github.com/angular-ui/ui-router
@@ -121,16 +121,13 @@ angular.module('geo_chat', [
     controller: 'LoginCtrl'
   });
 
-
-
-
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/login');
 
 })
 .constant('FBURL', 'https://nguyenthong1992.firebaseio.com/')
-.constant('USERURL','https://nguyenthong1992.firebaseio.com/users')
-.constant('USERLOCATIONURL','https://nguyenthong1992.firebaseio.com/users_location')
+.constant('USERURL', 'https://nguyenthong1992.firebaseio.com/users')
+.constant('USERLOCATIONURL', 'https://nguyenthong1992.firebaseio.com/users_location')
 .constant('ROOMURL', 'https://nguyenthong1992.firebaseio.com/rooms')
 .constant('MSGURL', 'https://nguyenthong1992.firebaseio.com/messages')
 .constant('MEMBERURL', 'https://nguyenthong1992.firebaseio.com/members')

@@ -3,25 +3,25 @@
 
   angular.module('geo_chat')
     .controller('CreateRoomCtrl', ['$scope', '$cordovaGeolocation', 'uiGmapGoogleMapApi', '$timeout', '$state', '$ionicLoading', '$ionicModal', 'RoomService', CreateRoomCtrl]);
-  function CreateRoomCtrl( $scope, $cordovaGeolocation, uiGmapGoogleMapApi, $timeout, $state, $ionicLoading, $ionicModal, RoomService) {
-     $scope.rooms = [];
+  function CreateRoomCtrl($scope, $cordovaGeolocation, uiGmapGoogleMapApi, $timeout, $state, $ionicLoading, $ionicModal, RoomService) {
+    $scope.rooms = [];
     //Get location of user
     var posOptions = {timeout: 10000, enableHighAccuracy: true};
-      $cordovaGeolocation
-        .getCurrentPosition(posOptions)
-        .then(getLocationSuccess, getLocationError);
-      //location for displaying the map and create new room
-      function getLocationSuccess(position) {
+    $cordovaGeolocation
+      .getCurrentPosition(posOptions)
+      .then(getLocationSuccess, getLocationError);
+    //location for displaying the map and create new room
+    function getLocationSuccess(position) {
         $scope.map = {
-        center: {
+          center: {
           latitude: position.coords.latitude,
           longitude:  position.coords.longitude
         },
-        zoom: 14
+          zoom: 14
         };
       }
 
-      function getLocationError(err) {
+    function getLocationError(err) {
         console.log(err);
       }
 
@@ -31,10 +31,10 @@
     $scope.newRoom = {};
 
     $scope.createRoom = function () {
-      if ( $scope.newRoom.name === undefined || $scope.newRoom.name === ''){
+      if ($scope.newRoom.name === undefined || $scope.newRoom.name === '') {
         $scope.errorMes = "*Room name is required";
       }
-      else if ( $scope.newRoom.range === undefined || $scope.newRoom.range === '' ){
+      else if ($scope.newRoom.range === undefined || $scope.newRoom.range === '') {
         $scope.errorMes = "*Range is required";
       }
       else {
@@ -45,7 +45,7 @@
           range:  $scope.newRoom.range,
           location: [$scope.map.center.latitude, $scope.map.center.longitude],
         };
-        switch ( $scope.newRoom.private){
+        switch ($scope.newRoom.private){
           case undefined:
             pushRoomData.private = false;
             pushRoomData.range = $scope.newRoom.range;
@@ -73,14 +73,14 @@
 
     $scope.closeModal = function () {
       $timeout(function () {
-        if($state.is('tab.dash')){
+        if ($state.is('tab.dash')) {
           $scope.modal.remove();
-      }}, 300);
+        }}, 300);
     };
     //stop loading icon
     function startLoading() {
       $ionicLoading.show({
-      template: '<ion-spinner icon="ripple" class="spinner-balanced">Your Room is creating</ion-spinner>'
+        template: '<ion-spinner icon="ripple" class="spinner-balanced">Your Room is creating</ion-spinner>'
       });
     }
     function stopLoading() {
@@ -90,9 +90,7 @@
     }
     // Querying the room
 
-
     //$scope.options = {scrollwheel: false};
-
 
   }
 }(window.angular));

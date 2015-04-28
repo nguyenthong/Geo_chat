@@ -4,7 +4,7 @@
 
   angular.module('geo_chat')
     .controller('LoginCtrl', ['$scope', '$firebase', '$firebaseAuth', 'FBURL', 'USERURL', '$window', '$rootScope', '$state', LoginCtrl]);
-    function LoginCtrl($scope, $firebase, $firebaseAuth, FBURL, USERURL, $window, $rootScope, $state) {
+  function LoginCtrl($scope, $firebase, $firebaseAuth, FBURL, USERURL, $window, $rootScope, $state) {
       var fbRef = new Firebase(FBURL);
       var authObj = $firebaseAuth(fbRef);
 
@@ -30,7 +30,6 @@
             console.error("Authentication failed:", error);
           });
       };
-
 
       //$scope.simpleLogin = $firebaseSimpleLogin(fbRef);
       //$scope.errors = [];
