@@ -9,8 +9,31 @@
 
     var roomId = $stateParams.roomId;
     $scope.message = "";
-    $scope.messages = MessageService.messagesArray(roomId);
-    $ionicScrollDelegate.scrollBottom(true);
+    MessageService.messagesArray(roomId).$loaded()
+      .then(function (messages) {
+        $ionicScrollDelegate.scrollBottom(true);
+        $scope.messages = messages;
+
+        var unSeenMessages = messages
+        .filter(function (message) {
+          var hasSeen = _.include(message.seen, $rootScope.user.userKey);
+          if (!hasSeen) {
+            return message;
+          }
+        })
+        .map(function (message) {
+          console.log(message);
+        });
+
+        console.log(unSeenMessages);
+      })
+      .catch(function(error) {
+        console.log("Error:", error);
+      });
+
+
+    //todo make callback when the array has been loaded
+
 
     //todo fix this with user profile
     $scope.sendMessage = function () {
@@ -19,7 +42,8 @@
             sender: $rootScope.user.userKey,
             text: $scope.message,
             picture: $rootScope.user.picture,
-            timestamp: Firebase.ServerValue.TIMESTAMP
+            timestamp: Firebase.ServerValue.TIMESTAMP,
+            seen: [$rootScope.user.userKey]
           });
           $ionicScrollDelegate.scrollBottom(true);
         }else {

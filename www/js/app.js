@@ -29,9 +29,9 @@ angular.module('geo_chat', [
   });
 })
 //  todo remove this in production
-.run(['$state', 'stateWatcherService', function ($state, stateWatcherService) {
-  // Include $route to kick start the router.
-}])
+//.run(['$state', 'stateWatcherService', function ($state, stateWatcherService) {
+//  // Include $route to kick start the router.
+//}])
 
 .config(function($stateProvider, $urlRouterProvider, uiGmapGoogleMapApiProvider) {
   //angularUi-google-map config
