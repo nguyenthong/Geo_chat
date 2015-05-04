@@ -3,37 +3,47 @@
   /*global Firebase*/
   angular.module('geo_chat')
     .controller('ChatCtrl', ['$scope', '$timeout', 'MessageService',
-      '$rootScope', '$stateParams', '$ionicScrollDelegate', ChatCtrl]);
+      '$rootScope', '$stateParams', '$ionicScrollDelegate', 'MSGURL', ChatCtrl]);
   function ChatCtrl($scope, $timeout, MessageService,
-                    $rootScope, $stateParams, $ionicScrollDelegate) {
+                    $rootScope, $stateParams, $ionicScrollDelegate, MSGURL) {
 
     var roomId = $stateParams.roomId;
     $scope.message = "";
+
+    //query message in the room and mark it as seen
     MessageService.messagesArray(roomId).$loaded()
       .then(function (messages) {
         $ionicScrollDelegate.scrollBottom(true);
         $scope.messages = messages;
 
         var unSeenMessages = messages
-        .filter(function (message) {
-          var hasSeen = _.include(message.seen, $rootScope.user.userKey);
-          if (!hasSeen) {
-            return message;
-          }
-        })
-        .map(function (message) {
-          console.log(message);
-        });
+          .filter(function (message) {
+            var hasSeen = _.include(message.seen, $rootScope.user.userKey);
+            if (!hasSeen) {
+              return message;
+            }
+          })
+          .map(function (message) {
+            if (message.seen !== undefined) {
+              var ref = message.$id;
+              var url = MSGURL.concat('/' + roomId).concat('/' + ref);
+              message.seen.push($rootScope.user.userKey);
+              messages.$save(url)
+                .then(function () {
+                  console.log('saving successed');
+                })
+                .catch(function (error) {
+                  console.log('Error:', error);
+                });
+            }
+          });
 
         console.log(unSeenMessages);
       })
       .catch(function(error) {
         console.log("Error:", error);
       });
-
-
     //todo make callback when the array has been loaded
-
 
     //todo fix this with user profile
     $scope.sendMessage = function () {
