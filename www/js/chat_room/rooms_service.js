@@ -31,11 +31,9 @@
         var newRoomID = newRoomRef.key();
         //using newRoomID to set ID for messages, locations, members
         memberRef.child(newRoomRef.key()).set({
-          empty: true,
           info: {}
         });
         messageRef.child(newRoomRef.key()).set({
-          empty: true,
           info: {}
         });
         //setting location for the room
