@@ -25,25 +25,34 @@
           })
           .map(function (message) {
             if (message.seen !== undefined) {
-              var ref = message.$id;
-              var url = MSGURL.concat('/' + roomId).concat('/' + ref);
+              var messageId = message.$id;
+              var record = messages.$getRecord(messageId);
               message.seen.push($rootScope.user.userKey);
-              messages.$save(url)
+              messages.$save(record)
                 .then(function () {
                   console.log('saving successed');
                 })
                 .catch(function (error) {
                   console.log('Error:', error);
                 });
+              return message;
             }
           });
-
         console.log(unSeenMessages);
+        //watching the event in the synced array
+        //$scope.messages.$watch(function (event, key) {
+        //  var url = MSGURL.concat('/' + roomId).concat('/' + key).concat('/seen');
+        //  console.log(url);
+        //  console.log(event, key);
+        //});
       })
       .catch(function(error) {
         console.log("Error:", error);
       });
-    //todo make callback when the array has been loaded
+    //callback when child item added to the array
+    $scope.$on('$ionicView.beforeLeave', function() {
+      console.log('beforeLeave');
+    });
 
     //todo fix this with user profile
     $scope.sendMessage = function () {
