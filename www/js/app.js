@@ -12,7 +12,8 @@ angular.module('geo_chat', [
   'monospaced.elastic',
   //3rd parties modules
   'firebase',
-  'uiGmapgoogle-maps'
+  'uiGmapgoogle-maps',
+  'ngAudio'
 ])
 
 .run(function($ionicPlatform) {

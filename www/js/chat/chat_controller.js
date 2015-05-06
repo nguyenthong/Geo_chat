@@ -3,10 +3,10 @@
   /*global Firebase*/
   angular.module('geo_chat')
     .controller('ChatCtrl', ['$scope', '$timeout', 'MessageService',
-      '$rootScope', '$stateParams', '$ionicScrollDelegate', 'MSGURL', ChatCtrl]);
+      '$rootScope', '$stateParams', '$ionicScrollDelegate', 'MSGURL', 'ngAudio', ChatCtrl]);
   function ChatCtrl($scope, $timeout, MessageService,
-                    $rootScope, $stateParams, $ionicScrollDelegate, MSGURL) {
-
+                    $rootScope, $stateParams, $ionicScrollDelegate, MSGURL, ngAudio) {
+    $rootScope.notification = [];
     var roomId = $stateParams.roomId;
     $scope.message = "";
 
@@ -39,19 +39,33 @@
             }
           });
         console.log(unSeenMessages);
-        //watching the event in the synced array
-        //$scope.messages.$watch(function (event, key) {
-        //  var url = MSGURL.concat('/' + roomId).concat('/' + key).concat('/seen');
-        //  console.log(url);
-        //  console.log(event, key);
-        //});
+        //watching the event in the synced array to get event child_added to the array
+        $scope.messages.$watch(function (event) {
+          //todo solve async problem
+          console.log(event);
+          if (event.event === 'child_added') {
+            var record = messages.$getRecord(event.key);
+            console.log(record);
+            var seen = _.include(record.seen, $rootScope.user.userKey);
+            if (!seen) {
+              var sound = ngAudio.load('img/music_marimba_chord.wav'); // returns NgAudioObject
+              sound.play();
+              $rootScope.notification.push(record);
+            }
+          }
+        });
+        //mark seen for those message in notification array
+        $scope.markSeen = function () {
+          var length = $rootScope.notification.length;
+          console.log(length);
+        };
       })
       .catch(function(error) {
         console.log("Error:", error);
       });
     //callback when child item added to the array
-    $scope.$on('$ionicView.beforeLeave', function() {
-      console.log('beforeLeave');
+    $scope.$on('$ionicView.leave', function() {
+      console.log('leave');
     });
 
     //todo fix this with user profile

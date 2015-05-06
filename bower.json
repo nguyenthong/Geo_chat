@@ -12,6 +12,7 @@
     "firebase": "~2.2.3",
     "angular-elastic": "~2.4.2",
     "rsvp": "~3.0.17",
-    "rxjs": "~2.5.2"
+    "rxjs": "~2.5.2",
+    "angular-audio": "~1.6.2"
   }
 }
