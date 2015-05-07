@@ -6,11 +6,10 @@
       '$rootScope', '$stateParams', '$ionicScrollDelegate', 'MSGURL', 'ngAudio', ChatCtrl]);
   function ChatCtrl($scope, $timeout, MessageService,
                     $rootScope, $stateParams, $ionicScrollDelegate, MSGURL, ngAudio) {
-    $rootScope.notification = [];
     var roomId = $stateParams.roomId;
     $scope.message = "";
 
-    //query message in the room and mark it as seen
+    //After query message in the room and mark it as seen
     MessageService.messagesArray(roomId).$loaded()
       .then(function (messages) {
         $ionicScrollDelegate.scrollBottom(true);
@@ -51,6 +50,7 @@
               var sound = ngAudio.load('img/music_marimba_chord.wav'); // returns NgAudioObject
               sound.play();
               $rootScope.notification.push(record);
+              $rootScope.$emit('badge_changed');
             }
           }
         });

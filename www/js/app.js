@@ -33,6 +33,9 @@ angular.module('geo_chat', [
 //.run(['$state', 'stateWatcherService', function ($state, stateWatcherService) {
 //  // Include $route to kick start the router.
 //}])
+  .run(function ($rootScope) {
+    $rootScope.notification = [];
+  })
 
 .config(function($stateProvider, $urlRouterProvider, uiGmapGoogleMapApiProvider) {
   //angularUi-google-map config
@@ -49,11 +52,11 @@ angular.module('geo_chat', [
   $stateProvider
 
   // setup an abstract state for the tabs directive
-  .state('tab', {
-    url: "/tab",
-    abstract: true,
-    templateUrl: "templates/tabs.html"
-  })
+   .state('tab', {
+      url: "/tab",
+      abstract: true,
+      templateUrl: "templates/tabs.html"
+    })
 
   // Each tab has its own nav history stack:
 
