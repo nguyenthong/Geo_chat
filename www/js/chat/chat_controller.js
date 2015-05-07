@@ -56,8 +56,19 @@
         });
         //mark seen for those message in notification array
         $scope.markSeen = function () {
-          var length = $rootScope.notification.length;
-          console.log(length);
+          $rootScope.notification
+            .map(function (record) {
+              record.seen.push($rootScope.user.userKey);
+              messages.$save(record)
+                .then(function () {
+                  console.log('saving successed after input');
+                })
+                .catch(function (error) {
+                  console.log('Error:', error);
+                });
+            });
+          $rootScope.notification = []; //reset notification message
+          $rootScope.$emit('badge_changed');
         };
       })
       .catch(function(error) {
