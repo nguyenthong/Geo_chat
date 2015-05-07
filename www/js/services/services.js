@@ -84,7 +84,6 @@
       face: 'https://pbs.twimg.com/profile_images/491995398135767040/ie2Z_V6e.jpeg'
     }];
 
-
     return {
       all: function() {
         return friends;

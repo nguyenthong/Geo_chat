@@ -1,36 +1,35 @@
 (function () {
   /*global angular*/
-    'use strict';
+  'use strict';
 
-    angular.module('geo_chat').factory('stateWatcherService', stateWatcherService);
+  angular.module('geo_chat').factory('stateWatcherService', stateWatcherService);
 
-    stateWatcherService.$inject = ['$rootScope'];
+  stateWatcherService.$inject = ['$rootScope'];
 
-    function stateWatcherService($rootScope) {
+  function stateWatcherService($rootScope) {
 
-        $rootScope.$on('$stateChangeStart', stateChangeStart);
-        $rootScope.$on('$stateChangeSuccess', stateChangeSuccess);
-        $rootScope.$on('$stateChangeError', stateChangeError);
-        $rootScope.$on('$stateNotFound', stateNotFound);
+    $rootScope.$on('$stateChangeStart', stateChangeStart);
+    $rootScope.$on('$stateChangeSuccess', stateChangeSuccess);
+    $rootScope.$on('$stateChangeError', stateChangeError);
+    $rootScope.$on('$stateNotFound', stateNotFound);
 
-
-        function stateChangeStart(event, toState, toParams, fromState, fromParams){
-            console.log('state change start', event, toState, toParams, fromState, fromParams);
-        }
-
-        function stateChangeSuccess(event, toState, toParams, fromState, fromParams){
-            console.log('state change success', event, toState, toParams, fromState, fromParams);
-        }
-
-        function stateChangeError(event, toState, toParams, fromState, fromParams, error){
-            console.log('state change error', event, toState, toParams, fromState, fromParams, error);
-        }
-
-        function stateNotFound(event, unfoundState, fromState, fromParams){
-            console.log('state not found', event, unfoundState, fromState, fromParams);
-        }
-
-        var service = {};
-        return service;
+    function stateChangeStart(event, toState, toParams, fromState, fromParams) {
+      console.log('state change start', event, toState, toParams, fromState, fromParams);
     }
+
+    function stateChangeSuccess(event, toState, toParams, fromState, fromParams) {
+      console.log('state change success', event, toState, toParams, fromState, fromParams);
+    }
+
+    function stateChangeError(event, toState, toParams, fromState, fromParams, error) {
+      console.log('state change error', event, toState, toParams, fromState, fromParams, error);
+    }
+
+    function stateNotFound(event, unfoundState, fromState, fromParams) {
+      console.log('state not found', event, unfoundState, fromState, fromParams);
+    }
+
+    var service = {};
+    return service;
+  }
 })();

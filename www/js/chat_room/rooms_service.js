@@ -6,7 +6,7 @@
   angular.module('geo_chat')
     .service('RoomService', ['ROOMURL', 'MSGURL', 'MEMBERURL', 'LOCATIONURL', '$q', '$firebaseArray', 'uiGmapGoogleMapApi', RoomsService]);
     
-  function RoomsService( ROOMURL, MSGURL, MEMBERURL, LOCATIONURL, $q, $firebaseArray, uiGmapGoogleMapApi) {
+  function RoomsService(ROOMURL, MSGURL, MEMBERURL, LOCATIONURL, $q, $firebaseArray, uiGmapGoogleMapApi) {
     var roomRef = new Firebase(ROOMURL);
 
     var geoRoomRef = new Firebase(LOCATIONURL);
@@ -23,7 +23,7 @@
         var deferred = $q.defer();
         //todo fix the memberRef and MessageRef creation base on newRoomRef.key(()
         var newRoomRef = roomRef.push(newRoom, function(error) {
-          if(error === null){
+          if (error === null) {
             var successMessage = "Your room is created";
             deferred.resolve(successMessage);
           }
@@ -31,20 +31,18 @@
         var newRoomID = newRoomRef.key();
         //using newRoomID to set ID for messages, locations, members
         memberRef.child(newRoomRef.key()).set({
-          empty: true,
           info: {}
         });
         messageRef.child(newRoomRef.key()).set({
-          empty: true,
           info: {}
         });
         //setting location for the room
-        geoFire.set(newRoomRef.key(),newRoom.location);
+        geoFire.set(newRoomRef.key(), newRoom.location);
         return deferred.promise;
       },
       //todo function to add user to the room
       //all function for querying all the rooms
-      all: function allRooms(key,location, distance, user_location, range) {
+      all: function allRooms(key, location, distance, user_location, range) {
         var rooms = [];
         var circles = [];
         var DISTANCE_ADDED = 1; //query more rooms than calculate to display
@@ -69,26 +67,26 @@
               var room_locationObj = new maps.LatLng(room_location[0], room_location[1]);
               var distanceToRoom = maps.geometry.spherical.computeDistanceBetween(user_locationObj, room_locationObj);
               userInCircleDetection();
-            //  decorator function
+              //  decorator function
               function userInCircleDetection() {
-                if (distanceToRoom <= radius){//distance comeback in kilometer
-                  room ={
+                if (distanceToRoom <= radius) {//distance comeback in kilometer
+                  room = {
                     roomID:  data.key(),
                     roomData: data.val()
                   };
                   circle = {
                     id: key,
-                      center: {
+                    center: {
                         latitude: room.roomData.location[0],
                         longitude: room.roomData.location[1]
                       },
-                      radius: Number(room.roomData.range),
-                      stroke: {
+                    radius: Number(room.roomData.range),
+                    stroke: {
                         color: '#08B21F', //green color indicate for accessible rooms
                         weight: 2,
                         opacity: 1
                       },
-                      fill: {
+                    fill: {
                         color: '#08B21F',
                         opacity: 0.5
                       }
@@ -96,24 +94,24 @@
                   rooms.push(room);
                   circles.push(circle);
                 }
-                else{
-                  room ={
+                else {
+                  room = {
                     roomID:  data.key(),
                     roomData: data.val()
                   };
                   var outOfRangeCircle = {
                     id: key,
-                      center: {
+                    center: {
                         latitude: room.roomData.location[0],
                         longitude: room.roomData.location[1]
                       },
-                      radius: Number(room.roomData.range),
-                      stroke: {
+                    radius: Number(room.roomData.range),
+                    stroke: {
                         color: '#ff4081', //red color indicate for non-accessible rooms
                         weight: 2,
                         opacity: 1
                       },
-                      fill: {
+                    fill: {
                         color: '#ff4081',
                         opacity: 0.5
                       }
@@ -136,7 +134,7 @@
 
       },
       delete: function (room) {
-      // todo adding remove method
+        // todo adding remove method
       }
     };
   }
