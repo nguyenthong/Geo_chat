@@ -44,13 +44,14 @@
           console.log(event);
           if (event.event === 'child_added') {
             var record = messages.$getRecord(event.key);
-            console.log(record);
             var seen = _.include(record.seen, $rootScope.user.userKey);
             if (!seen) {
               var sound = ngAudio.load('img/music_marimba_chord.wav'); // returns NgAudioObject
               sound.play();
               $rootScope.notification.push(record);
               $rootScope.$emit('badge_changed');
+              record.unSeen = true;
+              return record;
             }
           }
         });

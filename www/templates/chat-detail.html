@@ -8,12 +8,14 @@
   <ion-content class="padding"
                has-bouncing="true">
 	  <div ng-repeat="message in messages" class="message-wrapper">
-		  <div ng-if="message.sender !== user.userKey">
+      <!-- from sender-->
+      <div ng-if="message.sender !== user.userKey" ng-style="unSeenBackground">
 			  <img class="profile-pic left" ng-src="{{ message.picture }}" />
 			  <div class="chat-bubble left">
 				  <div class="message" ng-bind-html="message.text" >
 				  </div>
           <div class="message-detail">
+            {{message.timestamp | date:'medium'}}
           </div>
         </div>
 
@@ -26,6 +28,7 @@
 				  <div class="message" ng-bind-html="message.text" >
 				  </div>
           <div class="message-detail">
+            {{message.timestamp | date:'medium'}}
           </div>
         </div>
       </div>
