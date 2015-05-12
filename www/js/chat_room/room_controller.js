@@ -2,8 +2,8 @@
   'use strict';
 
   angular.module('geo_chat')
-    .controller('CreateRoomCtrl', ['$scope', '$cordovaGeolocation', 'uiGmapGoogleMapApi', '$timeout', '$state', '$ionicLoading', '$ionicModal', 'RoomService', CreateRoomCtrl]);
-  function CreateRoomCtrl($scope, $cordovaGeolocation, uiGmapGoogleMapApi, $timeout, $state, $ionicLoading, $ionicModal, RoomService) {
+    .controller('CreateRoomCtrl', ['$scope', '$rootScope', '$cordovaGeolocation', 'uiGmapGoogleMapApi', '$timeout', '$state', '$ionicLoading', '$ionicModal', 'RoomService', CreateRoomCtrl]);
+  function CreateRoomCtrl($scope, $rootScope, $cordovaGeolocation, uiGmapGoogleMapApi, $timeout, $state, $ionicLoading, $ionicModal, RoomService) {
     $scope.rooms = [];
     //Get location of user
     var posOptions = {timeout: 10000, enableHighAccuracy: true};
@@ -41,9 +41,9 @@
         startLoading();
         var pushRoomData = {
           name:  $scope.newRoom.name,
-          private:  $scope.newRoom.private,
           range:  $scope.newRoom.range,
           location: [$scope.map.center.latitude, $scope.map.center.longitude],
+          creator: $rootScope.user.userKey
         };
         switch ($scope.newRoom.private){
           case undefined:
@@ -61,7 +61,13 @@
         }
       }
       $scope.newRoom = {};
-
+    };
+    //delete room
+    $scope.delete = function (roomId) {
+      RoomService.delete(roomId)
+        .then(function (successMessage) {
+          console.log(successMessage);
+        });
     };
     //modal for confirm message
     $ionicModal.fromTemplateUrl('successInfo.html', {

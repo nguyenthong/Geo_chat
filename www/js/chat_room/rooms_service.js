@@ -17,6 +17,13 @@
 
     var memberRef = new Firebase(MEMBERURL);
     var fireMember = $firebaseArray(memberRef);
+    var onComplete = function(error, location) {
+      if (error) {
+        console.log('Synchronization failed', location);
+      } else {
+        console.log('Synchronization succeeded', location);
+      }
+    };
 
     return {
       createRoom: function CreateRoom(newRoom) {
@@ -30,17 +37,34 @@
         });
         var newRoomID = newRoomRef.key();
         //using newRoomID to set ID for messages, locations, members
-        memberRef.child(newRoomRef.key()).set({
+        memberRef.child(newRoomID).set({
           info: {}
         });
-        messageRef.child(newRoomRef.key()).set({
+        messageRef.child(newRoomID).set({
           info: {}
         });
         //setting location for the room
-        geoFire.set(newRoomRef.key(), newRoom.location);
+        geoFire.set(newRoomID, newRoom.location);
         return deferred.promise;
       },
-      //todo function to add user to the room
+      delete: function (roomId) {
+        var deferred = $q.defer();
+        var newRoomRef = roomRef.remove(function(error) {
+          if (error === null) {
+            var successMessage = 'Your room is deleted';
+            deferred.resolve(successMessage);
+          }
+          else {
+            console.log('Synchronization failed');
+          }
+        });
+        memberRef.child(roomId).remove(onComplete(error, memberRef));
+        messageRef.child(roomId).remove(onComplete(error, messageRef));
+        //setting location for the room
+        geoFire.remove(roomId)
+          .then(onComplete);
+        return deferred.promise;
+      },
       //all function for querying all the rooms
       all: function allRooms(key, location, distance, user_location, range) {
         var rooms = [];
@@ -129,12 +153,6 @@
           return deferred.promise;
         });
         return deferred.promise;
-      },
-      get: function getRoom(chatId) {
-
-      },
-      delete: function (room) {
-        // todo adding remove method
       }
     };
   }
