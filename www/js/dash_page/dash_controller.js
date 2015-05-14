@@ -7,7 +7,6 @@
       //initila value for radius
       $scope.radius = 100;
       var range = $scope.radius;
-
       //get user profile
       GetProfileService.userProfile()
       .then(getUserSuccess, getUserError);
@@ -29,7 +28,7 @@
         var distance = Number(radius) * 0.001;//geofire take the distance para in kilometer
         var location = $scope.currentLocation;
 
-        RoomService.all(key, location, distance, user_location, range).
+        RoomService.all(key, location, distance, $scope.currentLocation, range).
           then(allRoomSuccess, allRoomError);
         $scope.$broadcast('scroll.refreshComplete');
       };
@@ -64,7 +63,7 @@
                    var distance = maps.geometry.spherical.computeDistanceBetween(neObj, locationObj) * 0.001;
                    $log.info('this is the map instance', locationArr);
                    RoomService.all(key, locationArr, distance, user_location, range).
-                      then(allRoomSuccess, allRoomError);
+                      then(mapAllRoomSuccess, allRoomError);
                  });
               });
             }
@@ -83,7 +82,7 @@
         //  save current user location to the firebase for Geoquery every 1s
         GetProfileService.userLocationKey($scope.currentLocation);
         //  initialize the the rooms
-        //$scope.allRooms(100);
+        $scope.allRooms(1000);
       }
 
       function getLocationError(err) {
@@ -99,13 +98,15 @@
 
       function allRoomSuccess(container) {
           $scope.rooms = container.rooms;
-          console.log(container);
-          $scope.circles = container.circles;
         }
 
       function allRoomError(e) {
         console.log(e);
       }
+
+      function mapAllRoomSuccess(container) {
+          $scope.circles = container.circles;
+        }
 
     }
 })(window.angular);

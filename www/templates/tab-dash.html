@@ -1,5 +1,5 @@
 <ion-view view-title="Chat rooms">
-	<ion-content scroll="true">
+	<ion-content>
 		<div>
 		<!--user profile image-->
 		<div style="position: absolute; top: 1em; left: 0.3em; z-index: 19;">
@@ -33,11 +33,6 @@
 
 	</div>
 		<!--room list-->
-			<ion-refresher
-		    pulling-text="Pull to refresh..."
-		    on-refresh="allRooms(radius)"
-				>
-		  </ion-refresher>
 		  <ion-list can-swipe="listCanSwipe">
 		    <ion-item ng-repeat="room in rooms" ui-sref="tab.chats({ roomId: room.roomID })">
 			    <div class="card">
