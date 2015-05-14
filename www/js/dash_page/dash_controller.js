@@ -1,10 +1,11 @@
 (function (angular) {
   "use strict";
   angular.module('geo_chat')
-   .controller('DashCtrl', ['$scope', '$rootScope', '$log', '$timeout', '$cordovaGeolocation', 'uiGmapGoogleMapApi', 'GetProfileService', 'RoomService', DashCtrl]);
+   .controller('DashCtrl', ['$scope', '$rootScope', '$log', '$timeout', '$cordovaGeolocation', '$ionicLoading', 'uiGmapGoogleMapApi', 'GetProfileService', 'RoomService', DashCtrl]);
 
-  function DashCtrl($scope, $rootScope, $log, $timeout, $cordovaGeolocation, uiGmapGoogleMapApi, GetProfileService, RoomService) {
+  function DashCtrl($scope, $rootScope, $log, $timeout, $cordovaGeolocation, $ionicLoading, uiGmapGoogleMapApi, GetProfileService, RoomService) {
       //initila value for radius
+      startLoading();
       $scope.radius = 100;
       var range = $scope.radius;
       //get user profile
@@ -83,6 +84,7 @@
         GetProfileService.userLocationKey($scope.currentLocation);
         //  initialize the the rooms
         $scope.allRooms(1000);
+        $scope.$apply();
       }
 
       function getLocationError(err) {
@@ -98,6 +100,7 @@
 
       function allRoomSuccess(container) {
           $scope.rooms = container.rooms;
+          stopLoading();
         }
 
       function allRoomError(e) {
@@ -105,8 +108,18 @@
       }
 
       function mapAllRoomSuccess(container) {
-          $scope.circles = container.circles;
-        }
+        $scope.circles = container.circles;
+      }
+      //stop loading icon
+      function startLoading() {
+        $ionicLoading.show({
+          template: '<ion-spinner icon="ripple" class="spinner-energized"></ion-spinner>'
+        });
+      }
+      function stopLoading() {
+        $ionicLoading.hide();
+
+      }
 
     }
 })(window.angular);

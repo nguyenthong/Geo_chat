@@ -80,7 +80,7 @@
     //stop loading icon
     function startLoading() {
       $ionicLoading.show({
-        template: '<ion-spinner icon="ripple" class="spinner-balanced">Your Room is creating</ion-spinner>'
+        template: '<ion-spinner icon="ripple" class="spinner-energized"></ion-spinner>'
       });
     }
     function stopLoading() {
