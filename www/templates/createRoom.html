@@ -17,9 +17,6 @@
 						<h2>{{ newRoom.range }} m</h2>
 						<input type="range" name="volume" min="0" max="1000" step="100" value="0" ng-model="newRoom.range">
 					</div>
-					<!--private checkbox-->
-					<ion-checkbox ng-model="newRoom.private">Private( only people in this range can join)</ion-checkbox>
-
 					<!--create button-->
 					<a class="button button-block button-assertive" ng-click="createRoom()">
 						Create Room
