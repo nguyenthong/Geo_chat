@@ -12,7 +12,6 @@
       GetProfileService.userProfile()
       .then(getUserSuccess, getUserError);
 
-      //todo memory leak issue, also in RoomCrtl, checkout https://github.com/dylanfprice/angular-gm, or using partial
       var posOptions = {timeout: 10000, maximumAge:1000, enableHighAccuracy: false};
       //checking the user position every 1s
       $timeout(function () {
@@ -20,9 +19,6 @@
           .getCurrentPosition(posOptions)
           .then(getLocationSuccess, getLocationError);
       }, 1000);
-
-      setTimeout(getLocationSuccess, 0);
-
       //google maps interactive
       $scope.options = {scrollwheel: true};
 
@@ -36,11 +32,9 @@
         RoomService.all(key, location, distance, user_location, range).
           then(allRoomSuccess, allRoomError);
         $scope.$broadcast('scroll.refreshComplete');
-        $scope.$apply();
-
       };
 
-      //declare
+      //declare=========================================================
       function getLocationSuccess(position) {
         $scope.map = {
           center: {
@@ -51,7 +45,6 @@
             tilesloaded: function (map) {
               $scope.$apply(function () {
                 uiGmapGoogleMapApi.then(function(maps) {
-                   //var map = new google.maps.Map;
                    var key = $rootScope.user.userKey; // key for querying geofire
                    var zoomLevel = map.getZoom();
                    var viewPort = map.getBounds();
@@ -90,7 +83,7 @@
         //  save current user location to the firebase for Geoquery every 1s
         GetProfileService.userLocationKey($scope.currentLocation);
         //  initialize the the rooms
-        $scope.allRooms(100);
+        //$scope.allRooms(100);
       }
 
       function getLocationError(err) {
