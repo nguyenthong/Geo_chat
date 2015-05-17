@@ -1,9 +1,9 @@
 (function (angular) {
   "use strict";
   angular.module('geo_chat')
-   .controller('DashCtrl', ['$scope', '$rootScope', '$log', '$timeout', '$cordovaGeolocation', '$ionicLoading', 'uiGmapGoogleMapApi', 'GetProfileService', 'RoomService', DashCtrl]);
+   .controller('DashCtrl', ['$scope', '$rootScope', '$log', '$timeout', '$cordovaGeolocation', '$ionicLoading', 'uiGmapGoogleMapApi', 'GetProfileService', 'rx', 'RoomService', DashCtrl]);
 
-  function DashCtrl($scope, $rootScope, $log, $timeout, $cordovaGeolocation, $ionicLoading, uiGmapGoogleMapApi, GetProfileService, RoomService) {
+  function DashCtrl($scope, $rootScope, $log, $timeout, $cordovaGeolocation, $ionicLoading, uiGmapGoogleMapApi, GetProfileService, rx, RoomService) {
       //initila value for radius
       startLoading();
       $scope.radius = 100;
