@@ -63,8 +63,18 @@
                    }
                    var distance = maps.geometry.spherical.computeDistanceBetween(neObj, locationObj) * 0.001;
                    $log.info('this is the map instance', locationArr);
-                   RoomService.all(key, locationArr, distance, user_location, range).
-                      then(mapAllRoomSuccess, allRoomError);
+                   //RoomService.all(key, locationArr, distance, user_location, range).
+                   //   then(mapAllRoomSuccess, allRoomError);
+                  var promise = RoomService.all(key, locationArr, distance, user_location, range);
+                   var observable = rx.Observable
+                     .fromPromise(promise)
+                     .map(function (container) {
+                       return container.circles;
+                     });
+
+                   observable.subscribe(function (circles) {
+                     $scope.circles = circles;
+                   });
                  });
               });
             }
