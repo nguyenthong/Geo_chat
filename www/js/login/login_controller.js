@@ -3,33 +3,50 @@
   'use strict';
 
   angular.module('geo_chat')
-    .controller('LoginCtrl', ['$scope', '$firebase', '$firebaseAuth', 'FBURL', 'USERURL', '$window', '$rootScope', '$state', LoginCtrl]);
-  function LoginCtrl($scope, $firebase, $firebaseAuth, FBURL, USERURL, $window, $rootScope, $state) {
+    .controller('LoginCtrl', ['$scope', '$firebase', '$cordovaFacebook', 'FBURL', 'USERURL', '$window', '$rootScope', '$state', LoginCtrl]);
+  function LoginCtrl($scope, $firebase, $cordovaFacebook, FBURL, USERURL, $window, $rootScope, $state) {
       var fbRef = new Firebase(FBURL);
       var authObj = $firebaseAuth(fbRef);
-
       var userRef = new Firebase(USERURL);
+
+      $scope.login = function () {
+        $cordovaFacebook.login(["public_profile", "email", "user_friends"])
+          .then(function (authData) {
+            $state.go('tab.dash');
+            console.log(authData);
+            //userRef.child(authData.id).set({
+            //  provider: 'fb',
+            //  user_name: authData.facebook.displayName,
+            //  picture: authData.facebook.cachedUserProfile.picture.data.url
+            //});
+          }, function (error) {
+            console.log(error);
+          });
+      };
+
+
+
       //todo adding checking user data
       //var isNewUser = true;
 
-      $scope.login = function (provider) {
-        authObj.$authWithOAuthPopup(provider)
-          .then(function(authData) {
-            console.log("Logged in as:", authData);
-            $state.go('tab.dash');
-            //todo refactor this to service
-            //add new user ref to fireabase
-            userRef.child(authData.uid).set({
-              provider: authData.provider,
-              user_name: authData.facebook.displayName,
-              picture: authData.facebook.cachedUserProfile.picture.data.url
-            });
-            return authData;
-          })
-          .catch(function(error) {
-            console.error("Authentication failed:", error);
-          });
-      };
+      //$scope.login = function (provider) {
+      //  authObj.$authWithOAuthPopup(provider)
+      //    .then(function(authData) {
+      //      console.log("Logged in as:", authData);
+      //      $state.go('tab.dash');
+      //      //todo refactor this to service
+      //      //add new user ref to fireabase
+      //      userRef.child(authData.uid).set({
+      //        provider: authData.provider,
+      //        user_name: authData.facebook.displayName,
+      //        picture: authData.facebook.cachedUserProfile.picture.data.url
+      //      });
+      //      return authData;
+      //    })
+      //    .catch(function(error) {
+      //      console.error("Authentication failed:", error);
+      //    });
+      //};
 
       //$scope.simpleLogin = $firebaseSimpleLogin(fbRef);
       //$scope.errors = [];
