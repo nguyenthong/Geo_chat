@@ -13,6 +13,7 @@
     "angular-elastic": "~2.4.2",
     "rsvp": "~3.0.17",
     "rxjs": "~2.5.2",
-    "angular-audio": "~1.6.2"
+    "angular-audio": "~1.6.2",
+    "ng-cordova-oauth": "~0.1.1"
   }
 }
