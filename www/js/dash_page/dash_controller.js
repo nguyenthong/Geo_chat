@@ -12,13 +12,11 @@
       GetProfileService.userProfile()
       .then(getUserSuccess, getUserError);
 
-      var posOptions = {timeout: 10000, maximumAge:1000, enableHighAccuracy: false};
-      //checking the user position every 1s
-      $timeout(function () {
-        $cordovaGeolocation
-          .getCurrentPosition(posOptions)
-          .then(getLocationSuccess, getLocationError);
-      }, 1000);
+      var posOptions = {timeout: 15000, enableHighAccuracy: true};
+      $cordovaGeolocation
+        .getCurrentPosition(posOptions)
+        .then(getLocationSuccess, getLocationError);
+
       //google maps interactive
       $scope.options = {scrollwheel: true};
 
