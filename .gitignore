@@ -8,3 +8,4 @@ plugins/
 www/lib/
 .vagrant/
 resources/
+engine/
