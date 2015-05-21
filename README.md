@@ -17,9 +17,10 @@ Type in your terminal  `ionic serve`
  and go to localhost:8100 on your browser or ionic automatically launch your default browser.
 ### Build Android app
 Please install android SDK before build the app, the application support android 4.4.4 up version API 19
- 1. `Ionic add platform android`
- 2. `ionc build android`
- 3. `ionic run android`
+ 1. Manually adding folder name platforms to your project file
+ 2. `Ionic add platform android`
+ 3. `ionc build android`
+ 4. `ionic run android`
 If you use Genymotion run the virtual device first, ionic will run it in your virtual device.
 
 
