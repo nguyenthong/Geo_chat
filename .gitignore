@@ -7,3 +7,4 @@ plugins/
 .idea
 www/lib/
 .vagrant/
+resources/
