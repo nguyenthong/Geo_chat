@@ -14,7 +14,7 @@ angular.module('geo_chat', [
   'firebase',
   'uiGmapgoogle-maps',
   'ngAudio',
-  'rx',
+  'rx'
 ])
 
 .run(function($ionicPlatform) {
@@ -28,6 +28,10 @@ angular.module('geo_chat', [
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
     }
+
+    if (PushbotsPlugin.isAndroid()) {
+      PushbotsPlugin.initializeAndroid("556cdfe8177959f83a8b4572", "895443764844");
+    }
   });
 })
 //  todo remove this in production
@@ -37,14 +41,7 @@ angular.module('geo_chat', [
   .run(function ($rootScope) {
     $rootScope.notification = [];
   })
-  //for push notification on Android
-  .run(function ($ionicPlatform, PushbotsPlugin) {
-    $ionicPlatform.ready(function () {
-      if (PushbotsPlugin.isAndroid()) {
-        PushbotsPlugin.initializeAndroid("PUSHBOTS_APP_ID", "GCM_SENDER_ID");
-      }
-    });
-  })
+
 
 .config(function($stateProvider, $urlRouterProvider, uiGmapGoogleMapApiProvider) {
   //angularUi-google-map config
