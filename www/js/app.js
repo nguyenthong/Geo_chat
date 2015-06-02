@@ -14,7 +14,7 @@ angular.module('geo_chat', [
   'firebase',
   'uiGmapgoogle-maps',
   'ngAudio',
-  'rx'
+  'rx',
 ])
 
 .run(function($ionicPlatform) {
@@ -36,6 +36,14 @@ angular.module('geo_chat', [
 //}])
   .run(function ($rootScope) {
     $rootScope.notification = [];
+  })
+  //for push notification on Android
+  .run(function ($ionicPlatform, PushbotsPlugin) {
+    $ionicPlatform.ready(function () {
+      if (PushbotsPlugin.isAndroid()) {
+        PushbotsPlugin.initializeAndroid("PUSHBOTS_APP_ID", "GCM_SENDER_ID");
+      }
+    });
   })
 
 .config(function($stateProvider, $urlRouterProvider, uiGmapGoogleMapApiProvider) {
