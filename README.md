@@ -6,7 +6,7 @@
  `node -v` and `npm -v` It should return the version of your nodejs version and NPM( package manager for nodejs).
  3. Install Ionic CLI `npm install -g ionic`.
  4. Install Bower for manage javascript dependencies 
- `npm install -g Bower`.
+ `npm install -g bower`.
  
  5. Install Project dependencies`bower install` , please choose angular 1.3.13 version, usually it is number second option.
  6. Install NPM dependencies `npm install`.
@@ -17,7 +17,7 @@ Type in your terminal  `ionic serve`
  and go to localhost:8100 on your browser or ionic automatically launch your default browser.
 ### Build Android app
 Please install android SDK before build the app, the application support android 4.4.4 up version API 19
- 1. `Ionic platform add android`
+ 1. `ionic platform add android`
  2. `ionc build android`
  3. `ionic run android`
 If you use Genymotion run the virtual device first, ionic will run it in your virtual device.

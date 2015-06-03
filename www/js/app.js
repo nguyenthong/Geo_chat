@@ -30,6 +30,7 @@ angular.module('geo_chat', [
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
     }
+<<<<<<< HEAD
     // first, lets initialize parse. fill in your parse appId and clientKey
     window.parsePlugin.initialize(appId, clientKey, function() {
       console.log('Parse initialized successfully.');
@@ -73,6 +74,7 @@ angular.module('geo_chat', [
   .run(function ($rootScope) {
     $rootScope.notification = [];
   })
+
 
 .config(function($stateProvider, $urlRouterProvider, uiGmapGoogleMapApiProvider) {
   //angularUi-google-map config
