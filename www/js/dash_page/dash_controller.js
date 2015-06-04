@@ -6,6 +6,7 @@
   function DashCtrl($scope, $rootScope, $log, $timeout, $cordovaGeolocation, $ionicLoading, uiGmapGoogleMapApi, GetProfileService, rx, RoomService) {
       //initila value for radius
       startLoading();
+      $scope.activeRoom = $rootScope.activeRoom;
       $scope.radius = 100;
       var range = $scope.radius;
       //get user profile

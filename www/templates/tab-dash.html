@@ -37,7 +37,12 @@
 		    <ion-item ng-repeat="room in rooms" ui-sref="tab.chats({ roomId: room.roomID })">
 			    <div class="card">
 					  <div class="item item-text-wrap">
-					    <h2>{{ room.roomData.name }}</h2>
+					    <h2>{{ room.roomData.name }}
+                <span ng-if="room.roomID === activeRoom">
+                  <i class="icon ion-chatbubble"></i>
+                </span>
+              </h2>
+
 					  </div>
 					</div>
 		    </ion-item>
@@ -66,5 +71,10 @@
 		background-color: #00bcd4;
 		z-index: 19;
 	}
+  .ion-chatbubble{
+    color: #f50057;
+    float: right;
+    font-size: 3em;
+  }
 
 </style>
