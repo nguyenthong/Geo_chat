@@ -18,9 +18,8 @@ angular.module('geo_chat', [
 ])
 
 .run(function($ionicPlatform) {
-  $ionicPlatform.ready(function () {
-    var appId = 'sgDdHaTXokyxhvUrfcoU1z7SMD9ddpnYjwlMcZuK';
-    var clientKey = 'nwYOQkgdCiEGJrmKZ9CpHD7XunMyMJiLFlqMjZFl';
+  $ionicPlatform.ready(function (appId, clientKey) {
+
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
     if (window.cordova && window.cordova.plugins.Keyboard) {
@@ -171,4 +170,6 @@ angular.module('geo_chat', [
 .constant('ROOMURL', 'https://nguyenthong1992.firebaseio.com/rooms')
 .constant('MSGURL', 'https://nguyenthong1992.firebaseio.com/messages')
 .constant('MEMBERURL', 'https://nguyenthong1992.firebaseio.com/members')
-.constant('LOCATIONURL', 'https://nguyenthong1992.firebaseio.com/location');
+.constant('LOCATIONURL', 'https://nguyenthong1992.firebaseio.com/location')
+.constant('appId', 'sgDdHaTXokyxhvUrfcoU1z7SMD9ddpnYjwlMcZuK')
+.constant('clientKey', 'nwYOQkgdCiEGJrmKZ9CpHD7XunMyMJiLFlqMjZFl');
