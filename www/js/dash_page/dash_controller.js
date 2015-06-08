@@ -24,7 +24,7 @@
       //Querying the rooms
       $scope.allRooms = function(radius) {
         //data for callback
-        var key = $rootScope.user.userKey; // key for querying geofire
+        var key = $rootScope.userKey; // key for querying geofire
         var distance = Number(radius) * 0.001;//geofire take the distance para in kilometer
         var location = $scope.currentLocation;
 
@@ -44,7 +44,7 @@
             tilesloaded: function (map) {
               $scope.$apply(function () {
                 uiGmapGoogleMapApi.then(function(maps) {
-                   var key = $rootScope.user.userKey; // key for querying geofire
+                   var key = $rootScope.userKey; // key for querying geofire
                    var zoomLevel = map.getZoom();
                    var viewPort = map.getBounds();
                    var locationObj = viewPort.getCenter();
