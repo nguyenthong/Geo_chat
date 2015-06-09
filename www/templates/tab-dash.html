@@ -42,7 +42,7 @@
                   <i class="icon ion-chatbubble"></i>
                 </span>
               </h2>
-
+              <span ng-if="room.roomData.createdBy === userKey"><i class="icon ion-close"></i></span>
 					  </div>
 					</div>
 		    </ion-item>
@@ -75,6 +75,11 @@
     color: #f50057;
     float: right;
     font-size: 3em;
+  }
+  .ion-close{
+    color: #f50057;
+    float: right;
+    font-size: 2em;
   }
 
 </style>

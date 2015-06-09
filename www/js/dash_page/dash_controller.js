@@ -7,6 +7,7 @@
       //initila value for radius
       startLoading();
       $scope.activeRoom = $rootScope.activeRoom;
+      $scope.userKey = $rootScope.userKey;
       $scope.radius = 100;
       var range = $scope.radius;
       //get user profile
@@ -84,7 +85,7 @@
         $scope.marker = {
           id: 0,
           coords: $scope.map.center,
-          options: {draggable: true}
+          options: {draggable: false}
         };
         //saving user location in 2 differnt types of data
         $scope.currentLocation = [position.coords.latitude, position.coords.longitude];

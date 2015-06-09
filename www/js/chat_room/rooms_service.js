@@ -130,11 +130,23 @@
         });
         return deferred.promise;
       },
-      get: function getRoom(chatId) {
-
-      },
       delete: function (room) {
-        // todo adding remove method
+        var deferred = $q.defer();
+        //todo fix the memberRef and MessageRef creation base on newRoomRef.key(()
+        var deleteRoomRef = roomRef.remove(room, onComplete);
+        //using newRoomID to set ID for messages, locations, members
+        memberRef.child(room).remove();
+        messageRef.child(room).remove();
+        //setting location for the room
+        geoFire.remove(room);
+        //
+        function onComplete(error) {
+          if (error === null) {
+            var successMessage = "Your room is deleted";
+            deferred.resolve(successMessage);
+          }
+        }
+        return deferred.promise;
       }
     };
   }
