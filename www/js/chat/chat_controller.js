@@ -7,6 +7,7 @@
   function ChatCtrl($scope, $timeout, MessageService,
                     $rootScope, $stateParams, $ionicScrollDelegate, MSGURL, ngAudio) {
     var roomId = $stateParams.roomId;
+    $rootScope.activeRoom = roomId;
     $scope.message = "";
 
     //After query message in the room and mark it as seen

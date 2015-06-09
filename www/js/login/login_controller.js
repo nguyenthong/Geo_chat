@@ -16,6 +16,7 @@
         authObj.$authWithOAuthPopup(provider)
           .then(function(authData) {
             console.log("Logged in as:", authData);
+            $rootScope.userKey = authData.uid;
             $state.go('tab.dash');
             //todo refactor this to service
             //add new user ref to fireabase

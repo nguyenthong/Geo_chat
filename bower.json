@@ -17,6 +17,7 @@
     "rxjs": "~2.5.2",
     "angular-audio": "~1.6.2",
     "ng-cordova-oauth": "~0.1.1",
-    "angular-rx": "~0.0.14"
+    "angular-rx": "~0.0.14",
+    "parse-js-sdk": "~1.4.2"
   }
 }
