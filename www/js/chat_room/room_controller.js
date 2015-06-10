@@ -39,27 +39,31 @@
       }
       else {
         startLoading();
-        var pushRoomData = {
-          name:  $scope.newRoom.name,
-          private:  $scope.newRoom.private,
-          range:  $scope.newRoom.range,
-          location: [$scope.map.center.latitude, $scope.map.center.longitude],
-          createdBy: $rootScope.user.userKey
-        };
-        switch ($scope.newRoom.private){
-          case undefined:
-            pushRoomData.private = false;
-            pushRoomData.range = $scope.newRoom.range;
-            RoomService.createRoom(pushRoomData)
-              .then(stopLoading(), showAlertError(e));
-            break;
-          case !undefined:
-            pushRoomData.private =  $scope.newRoom.private;
-            pushRoomData.range =  $scope.newRoom.range;
-            RoomService.createRoom(pushRoomData)
-              .then(stopLoading)
-              .catch(showAlertError);
-            break;
+        try {
+          var pushRoomData = {
+            name: $scope.newRoom.name,
+            private: $scope.newRoom.private,
+            range: $scope.newRoom.range,
+            location: [$scope.map.center.latitude, $scope.map.center.longitude],
+            createdBy: $rootScope.user.userKey
+          };
+          switch ($scope.newRoom.private) {
+            case undefined:
+              pushRoomData.private = false;
+              pushRoomData.range = $scope.newRoom.range;
+              RoomService.createRoom(pushRoomData)
+                .then(stopLoading(), showAlertError(e));
+              break;
+            case !undefined:
+              pushRoomData.private = $scope.newRoom.private;
+              pushRoomData.range = $scope.newRoom.range;
+              RoomService.createRoom(pushRoomData)
+                .then(stopLoading)
+                .catch(showAlertError);
+              break;
+          }
+        } catch (e) {
+          showAlertError(e);
         }
       }
       $scope.newRoom = {};
