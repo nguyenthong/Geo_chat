@@ -9,6 +9,9 @@
       $scope.activeRoom = $rootScope.activeRoom;
       $scope.userKey = $rootScope.userKey;
       $scope.radius = 100;
+      $scope.control = {
+        showDelete: false
+      };
       var range = $scope.radius;
       //get user profile
       GetProfileService.userProfile()
@@ -94,7 +97,7 @@
         GetProfileService.userLocationKey($scope.currentLocation);
         //  initialize the the rooms
         $scope.allRooms(1000);
-        $scope.$apply();
+        $scope.$digest();
       }
 
       function getLocationError(err) {
