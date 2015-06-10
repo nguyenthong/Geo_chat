@@ -35,7 +35,11 @@
 		<!--room list-->
 		  <ion-list can-swipe="listCanSwipe" show-delete="control.showDelete">
 		    <ion-item ng-repeat="room in rooms" ui-sref="tab.chats({ roomId: room.roomID })">
-			    <ion-delete-button class="ion-minus-circled"></ion-delete-button>
+			    <ion-delete-button class="ion-minus-circled"
+                             ng-show="room.roomData.createdBy === userKey"
+                             ng-click="deleteRoom(room.roomID)"
+                             >
+          </ion-delete-button>
           <div class="card">
 					  <div class="item item-text-wrap">
 					    <h2>{{ room.roomData.name }}
@@ -43,7 +47,6 @@
                   <i class="icon ion-chatbubble"></i>
                 </span>
               </h2>
-              <span ng-if="room.roomData.createdBy === userKey"><i class="icon ion-close"></i></span>
 					  </div>
 					</div>
 		    </ion-item>

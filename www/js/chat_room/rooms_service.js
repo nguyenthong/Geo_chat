@@ -130,15 +130,15 @@
         });
         return deferred.promise;
       },
-      delete: function (room) {
+      delete: function (roomID) {
         var deferred = $q.defer();
         //todo fix the memberRef and MessageRef creation base on newRoomRef.key(()
-        var deleteRoomRef = roomRef.remove(room, onComplete);
+        var deleteRoomRef = roomRef.child(roomID).remove(onComplete);
         //using newRoomID to set ID for messages, locations, members
-        memberRef.child(room).remove();
-        messageRef.child(room).remove();
+        memberRef.child(roomID).remove(onComplete);
+        messageRef.child(roomID).remove(onComplete);
         //setting location for the room
-        geoFire.remove(room);
+        geoFire.remove(roomID);
         //
         function onComplete(error) {
           if (error === null) {

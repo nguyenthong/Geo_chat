@@ -25,6 +25,12 @@
       //google maps interactive
       $scope.options = {scrollwheel: true};
 
+      //delete room
+      $scope.deleteRoom = function (roomID) {
+        RoomService.delete(roomID);
+        console.log('delete room: ' + roomID);
+      };
+
       //Querying the rooms
       $scope.allRooms = function(radius) {
         //data for callback
