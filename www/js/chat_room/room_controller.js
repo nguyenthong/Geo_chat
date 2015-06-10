@@ -52,7 +52,7 @@
               pushRoomData.private = false;
               pushRoomData.range = $scope.newRoom.range;
               RoomService.createRoom(pushRoomData)
-                .then(stopLoading(), showAlertError(e));
+                .then(stopLoading, showAlertError);
               break;
             case !undefined:
               pushRoomData.private = $scope.newRoom.private;
