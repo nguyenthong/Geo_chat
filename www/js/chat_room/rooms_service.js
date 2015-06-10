@@ -27,6 +27,10 @@
             var successMessage = "Your room is created";
             deferred.resolve(successMessage);
           }
+          else {
+            console.log(error);
+            deferred.reject(error);
+          }
         });
         var newRoomID = newRoomRef.key();
         //using newRoomID to set ID for messages, locations, members
@@ -130,11 +134,26 @@
         });
         return deferred.promise;
       },
-      get: function getRoom(chatId) {
-
-      },
-      delete: function (room) {
-        // todo adding remove method
+      delete: function (roomID) {
+        var deferred = $q.defer();
+        //todo fix the memberRef and MessageRef creation base on newRoomRef.key(()
+        var deleteRoomRef = roomRef.child(roomID).remove(onComplete);
+        //using newRoomID to set ID for messages, locations, members
+        memberRef.child(roomID).remove(onComplete);
+        messageRef.child(roomID).remove(onComplete);
+        //setting location for the room
+        geoFire.remove(roomID);
+        //
+        function onComplete(error) {
+          if (error === null) {
+            var successMessage = "Your room is deleted";
+            deferred.resolve(successMessage);
+          }
+          else{
+            deferred.reject(error);
+          }
+        }
+        return deferred.promise;
       }
     };
   }

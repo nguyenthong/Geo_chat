@@ -33,21 +33,28 @@
 
 	</div>
 		<!--room list-->
-		  <ion-list can-swipe="listCanSwipe">
+		  <ion-list can-swipe="listCanSwipe" show-delete="control.showDelete">
 		    <ion-item ng-repeat="room in rooms" ui-sref="tab.chats({ roomId: room.roomID })">
-			    <div class="card">
+			    <ion-delete-button class="ion-minus-circled"
+                             ng-show="room.roomData.createdBy === userKey"
+                             ng-click="deleteRoom(room.roomID)"
+                             >
+          </ion-delete-button>
+          <div class="card">
 					  <div class="item item-text-wrap">
 					    <h2>{{ room.roomData.name }}
                 <span ng-if="room.roomID === activeRoom">
                   <i class="icon ion-chatbubble"></i>
                 </span>
               </h2>
-
 					  </div>
 					</div>
 		    </ion-item>
 		  </ion-list>
 	</ion-content>
+  <!-- delete button-->
+  <a id="deleteButton" class="button button-icon icon ion-trash-b"
+          ng-click="control.showDelete = !control.showDelete"></a>
 	<!--create room button-->
 	<a ui-sref="tab.createRoom" id="createButton" class="button button-energized">
 		<i class="icon ion-plus-round custom-create-icon"></i>
@@ -76,5 +83,20 @@
     float: right;
     font-size: 3em;
   }
-
+  .ion-close{
+    color: #f50057;
+    float: right;
+    font-size: 2em;
+  }
+  #deleteButton{
+    position: absolute;
+    bottom: 4em;
+    right: 1em;
+    z-index: 19;
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, .5);
+  }
+  .ion-trash-b{
+    color: #f50057;
+    font-size: 2em;
+  }
 </style>

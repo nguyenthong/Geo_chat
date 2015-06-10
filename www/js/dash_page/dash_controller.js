@@ -1,13 +1,16 @@
 (function (angular) {
   "use strict";
   angular.module('geo_chat')
-   .controller('DashCtrl', ['$scope', '$rootScope', '$log', '$timeout', '$cordovaGeolocation', '$ionicLoading', 'uiGmapGoogleMapApi', 'GetProfileService', 'rx', 'RoomService', DashCtrl]);
+   .controller('DashCtrl', ['$scope', '$rootScope', '$log', '$timeout', '$cordovaGeolocation', '$ionicLoading', '$ionicPopup', 'uiGmapGoogleMapApi', 'GetProfileService', 'rx', 'RoomService', DashCtrl]);
 
-  function DashCtrl($scope, $rootScope, $log, $timeout, $cordovaGeolocation, $ionicLoading, uiGmapGoogleMapApi, GetProfileService, rx, RoomService) {
+  function DashCtrl($scope, $rootScope, $log, $timeout, $cordovaGeolocation, $ionicLoading, $ionicPopup, uiGmapGoogleMapApi, GetProfileService, rx, RoomService) {
       //initila value for radius
       startLoading();
       $scope.activeRoom = $rootScope.activeRoom;
       $scope.radius = 100;
+      $scope.control = {
+        showDelete: false
+      };
       var range = $scope.radius;
       //get user profile
       GetProfileService.userProfile()
@@ -20,6 +23,15 @@
 
       //google maps interactive
       $scope.options = {scrollwheel: true};
+
+      //delete room
+      $scope.deleteRoom = function (roomID) {
+        $scope.rooms.splice($scope.rooms.indexOf(roomID), 1);
+        $ionicLoading.show({template: '<ion-spinner icon="spiral" class="spiral-energized"></ion-spinner>'});
+        RoomService.delete(roomID)
+          .then(stopLoading)
+          .catch(showAlertError);
+      };
 
       //Querying the rooms
       $scope.allRooms = function(radius) {
@@ -84,7 +96,7 @@
         $scope.marker = {
           id: 0,
           coords: $scope.map.center,
-          options: {draggable: true}
+          options: {draggable: false}
         };
         //saving user location in 2 differnt types of data
         $scope.currentLocation = [position.coords.latitude, position.coords.longitude];
@@ -93,7 +105,6 @@
         GetProfileService.userLocationKey($scope.currentLocation);
         //  initialize the the rooms
         $scope.allRooms(1000);
-        $scope.$apply();
       }
 
       function getLocationError(err) {
@@ -101,6 +112,7 @@
       }
       function getUserSuccess (user) {
         $rootScope.user = user;
+        $scope.userKey = $rootScope.user.userKey;
       }
 
       function getUserError () {
@@ -120,14 +132,20 @@
         $scope.circles = container.circles;
       }
       //stop loading icon
-      function startLoading() {
-        $ionicLoading.show({
-          template: '<ion-spinner icon="ripple" class="spinner-energized"></ion-spinner>'
-        });
+      function startLoading(template) {
+        template = typeof template !== 'undefined' ? template : {template: '<ion-spinner icon="ripple" class="spinner-energized"></ion-spinner>'};
+        $ionicLoading.show(template);
       }
       function stopLoading() {
         $ionicLoading.hide();
-
+      }
+      function showAlertError(error) {
+        stopLoading();
+        console.log(error);
+        $ionicPopup.alert({
+              title: 'Error',
+              content: error
+            });
       }
 
     }

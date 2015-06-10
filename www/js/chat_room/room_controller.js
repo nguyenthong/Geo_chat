@@ -2,8 +2,8 @@
   'use strict';
 
   angular.module('geo_chat')
-    .controller('CreateRoomCtrl', ['$scope', '$cordovaGeolocation', 'uiGmapGoogleMapApi', '$timeout', '$state', '$ionicLoading', '$ionicModal', 'RoomService', CreateRoomCtrl]);
-  function CreateRoomCtrl($scope, $cordovaGeolocation, uiGmapGoogleMapApi, $timeout, $state, $ionicLoading, $ionicModal, RoomService) {
+    .controller('CreateRoomCtrl', ['$scope', '$rootScope', '$cordovaGeolocation', 'uiGmapGoogleMapApi', '$timeout', '$ionicPopup', '$state', '$ionicLoading', '$ionicModal', 'RoomService', CreateRoomCtrl]);
+  function CreateRoomCtrl($scope, $rootScope, $cordovaGeolocation, uiGmapGoogleMapApi, $timeout, $ionicPopup, $state, $ionicLoading, $ionicModal, RoomService) {
     $scope.rooms = [];
     //Get location of user
     var posOptions = {timeout: 10000, enableHighAccuracy: true};
@@ -44,19 +44,21 @@
           private:  $scope.newRoom.private,
           range:  $scope.newRoom.range,
           location: [$scope.map.center.latitude, $scope.map.center.longitude],
+          createdBy: $rootScope.user.userKey
         };
         switch ($scope.newRoom.private){
           case undefined:
             pushRoomData.private = false;
             pushRoomData.range = $scope.newRoom.range;
             RoomService.createRoom(pushRoomData)
-              .then(stopLoading);
+              .then(stopLoading(), showAlertError(e));
             break;
           case !undefined:
             pushRoomData.private =  $scope.newRoom.private;
             pushRoomData.range =  $scope.newRoom.range;
             RoomService.createRoom(pushRoomData)
-              .then(stopLoading);
+              .then(stopLoading)
+              .catch(showAlertError);
             break;
         }
       }
@@ -88,9 +90,14 @@
       $scope.modal.show();
 
     }
-    // Querying the room
-
-    //$scope.options = {scrollwheel: false};
+    function showAlertError(error) {
+      stopLoading();
+      console.log(error)
+      $ionicPopup.alert({
+            title: 'Error',
+            content: error
+          });
+    }
 
   }
 }(window.angular));
