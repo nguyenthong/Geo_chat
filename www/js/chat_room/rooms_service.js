@@ -27,6 +27,10 @@
             var successMessage = "Your room is created";
             deferred.resolve(successMessage);
           }
+          else {
+            console.log(error);
+            deferred.reject(error);
+          }
         });
         var newRoomID = newRoomRef.key();
         //using newRoomID to set ID for messages, locations, members
@@ -144,6 +148,9 @@
           if (error === null) {
             var successMessage = "Your room is deleted";
             deferred.resolve(successMessage);
+          }
+          else{
+            deferred.reject(error);
           }
         }
         return deferred.promise;
