@@ -1,0 +1,21 @@
+<ion-view view-title="About">
+ <ion-content class="padding">
+   <h2>Meet the team</h2>
+   <div class="list card">
+     <!-- -->
+     <div class="item item-avatar">
+       <img ng-src="{{team.business.img}}" alt="Description" />
+       <h2>{{ team.business.name }}</h2>
+       <h2>{{team.business.description}}</h2>
+       <a ng-href="{{team.business.link}}">More</a>
+     </div>
+     <!-- -->
+     <div class="item item-avatar">
+       <img ng-src="{{team.developer.img}}" alt="Description" />
+       <h2>{{ team.developer.name }}</h2>
+       <h2>{{team.developer.description}}</h2>
+       <a ng-href="{{team.developer.link}}">More</a>
+     </div>
+   </div>
+ </ion-content>
+</ion-view>

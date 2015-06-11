@@ -65,9 +65,9 @@ angular.module('geo_chat', [
   });
 })
 //  todo remove this in production
-//.run(['$state', 'stateWatcherService', function ($state, stateWatcherService) {
-//  // Include $route to kick start the router.
-//}])
+.run(['$state', 'stateWatcherService', function ($state, stateWatcherService) {
+  // Include $route to kick start the router.
+}])
   .run(function ($rootScope) {
     $rootScope.notification = [];
   })
@@ -125,34 +125,16 @@ angular.module('geo_chat', [
         }
       }
     })
-    //.state('tab.chat-detail', {
-    //  url: '/chats/:chatId',
-    //  views: {
-    //    'tab-chats': {
-    //      templateUrl: 'templates/chat-detail.html',
-    //      controller: 'ChatDetailCtrl'
-    //    }
-    //  }
-    //})
 
-  .state('tab.friends', {
-      url: '/friends',
-      views: {
-        'tab-friends': {
-          templateUrl: 'templates/tab-friends.html',
-          controller: 'FriendsCtrl'
-        }
+  .state('tab.about', {
+    url: '/about',
+    views: {
+      'tab-about': {
+        templateUrl: 'templates/about.html',
+        controller: 'AboutCtrl'
       }
-    })
-    .state('tab.friend-detail', {
-      url: '/friend/:friendId',
-      views: {
-        'tab-friends': {
-          templateUrl: 'templates/friend-detail.html',
-          controller: 'FriendDetailCtrl'
-        }
-      }
-    })
+    }
+  })
 
   .state('login', {
     url: '/login' ,

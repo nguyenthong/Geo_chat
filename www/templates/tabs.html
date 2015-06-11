@@ -5,7 +5,7 @@ navigation history that also transitions its views in and out.
 -->
 <ion-tabs class="tabs-striped tabs-top tabs-background-balanced tabs-color-light">
   <!-- Dashboard Tab -->
-  <ion-tab title="Status" icon-off="ion-ionic" icon-on="ion-ionic" href="#/tab/dash">
+  <ion-tab icon-off="ion-ionic" icon-on="ion-ionic" href="#/tab/dash">
     <ion-nav-view name="tab-dash">
 
     </ion-nav-view>
@@ -13,11 +13,16 @@ navigation history that also transitions its views in and out.
 
 
   <!-- Chats Tab -->
-  <ion-tab title="Chats" icon-off="ion-chatboxes" ng-controller="MainCtrl"
+  <ion-tab icon-off="ion-chatboxes" ng-controller="MainCtrl"
            icon-on="ion-chatboxes" href="#/tab/chats"
            badge="badges"
            badge-style="badge-assertive">
     <ion-nav-view name="tab-chats"></ion-nav-view>
+  </ion-tab>
+  <!--About Tab -->
+  <ion-tab icon-off="ion-information-circled"
+           icon-on="ion-information-circled" ui-sref="tab.about">
+    <ion-nav-view name="tab-about"></ion-nav-view>
   </ion-tab>
 
 </ion-tabs>
