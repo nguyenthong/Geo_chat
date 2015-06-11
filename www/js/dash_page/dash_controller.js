@@ -26,11 +26,19 @@
 
       //delete room
       $scope.deleteRoom = function (roomID) {
-        $scope.rooms.splice($scope.rooms.indexOf(roomID), 1);
-        $ionicLoading.show({template: '<ion-spinner icon="spiral" class="spiral-energized"></ion-spinner>'});
-        RoomService.delete(roomID)
-          .then(stopLoading)
-          .catch(showAlertError);
+        var confirmPopup = $ionicPopup.confirm({
+           title: 'Deleting your chatroom',
+           template: 'Are you sure you want delete this room'
+         });
+        confirmPopup.then(function(res) {
+           if (res) {
+             $scope.rooms.splice($scope.rooms.indexOf(roomID), 1);
+             $ionicLoading.show({template: '<ion-spinner icon="spiral" class="spiral-energized"></ion-spinner>'});
+             RoomService.delete(roomID)
+               .then($ionicLoading.hide())
+               .catch(showAlertError);
+           }
+         });
       };
 
       //Querying the rooms
@@ -76,7 +84,7 @@
                    $log.info('this is the map instance', locationArr);
                    //RoomService.all(key, locationArr, distance, user_location, range).
                    //   then(mapAllRoomSuccess, allRoomError);
-                  var promise = RoomService.all(key, locationArr, distance, user_location, range);
+                   var promise = RoomService.all(key, locationArr, distance, user_location, range);
                    var observable = rx.Observable
                      .fromPromise(promise)
                      .map(function (container) {
