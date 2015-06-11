@@ -27,13 +27,3 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 // Include all of Ionic
 @import "../www/lib/ionic/scss/ionic.scss";
 
-#createButton{
-  position: absolute;
-  bottom: 1em;
-  right: 1em;
-  z-index: 19;
-  height: 4.5em;
-  width: 4.5em;
-  border-radius: 50%;
-  box-shadow: 3px 3px 5px rgba(0, 0, 0, .5);
-}
