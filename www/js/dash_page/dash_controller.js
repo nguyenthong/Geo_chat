@@ -55,11 +55,12 @@
 
       //declare=========================================================
       function getLocationSuccess(position) {
+        var coords = {
+          latitude: position.coords.latitude,
+          longitude:  position.coords.longitude
+        };
         $scope.map = {
-          center: {
-            latitude: position.coords.latitude,
-            longitude:  position.coords.longitude
-          },
+          center: Object.create(coords),
           events: { // event return query value from firebase base on Viewport of user map
             tilesloaded: function (map) {
               $scope.$apply(function () {
@@ -103,7 +104,7 @@
         //Google map marker
         $scope.marker = {
           id: 0,
-          coords: $scope.map.center,
+          coords: coords,
           options: {draggable: false}
         };
         //saving user location in 2 differnt types of data
