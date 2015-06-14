@@ -47,7 +47,7 @@
             var record = messages.$getRecord(event.key);
             var seen = _.include(record.seen, $rootScope.user.userKey);
             if (!seen) {
-              var sound = ngAudio.load('img/music_marimba_chord.wav'); // returns NgAudioObject
+              var sound = ngAudio.load('img/beer.mp3'); // returns NgAudioObject
               sound.play();
               $rootScope.notification.push(record);
               $rootScope.$emit('badge_changed');
